@@ -1,7 +1,7 @@
-#! /usr/bin/python3
-
+# Imports grouped by source
 from sklearn import datasets
 from sklearn.linear_model import LogisticRegression
+from sklearn.externals import joblib
 import numpy as np
 
 # Loading the dataset 
@@ -26,13 +26,10 @@ logRegClasif.fit(X_train,y_train)
 # Test the accuracy of the model using the test set 
 accuracy = logRegClasif.score(X_test,y_test) 
 
+# Save the model to disk for future usage
+joblib.dump(logRegClasif, 'logRegClasifIris.pkl')
+
+# Display the accuracy of the 
 accuracy_percentage = round((accuracy*100),2)
 print("Model accuracy: " + str(accuracy_percentage) + "%")
 
-
-
-
-#from sklearn import preprocessing
-#le = preprocessing.LabelEncoder()
-#le.fit(iris.target_names)
-#target_names = le.inverse_transform(iris.target)
