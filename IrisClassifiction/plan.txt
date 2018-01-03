@@ -1,0 +1,20 @@
+Objectives: 
+1. Create model to classify different species types
+2. Write up what you did, produce graphs to show results
+3. Put on github page 
+
+1. 
+- randomise order of data prior to split 
+- use 120/30 training/test split
+- use logistic regression
+- check results
+
+2. 
+a) First, I wrote this plan 
+b) Imported the iris dataset
+c) Learned how to use numpy.column_stack to put the training samples ane the targets together, so the data's ordering could be randomised prior to training/test set separation. 
+d) Created four separate data structures; I decided to split the data 80:20, since the full dataset is of 150 samples, made up with 50 of each class, I created a training set of the first 120 samples (from the randomly reordered dataset, to ensure the model would be trained on all 3 classes), and another set of the classes for those 120 samples. I then created a test set from the remaining 30 samples, along with the target set for those. 
+e) Then, I made the Logistic Regression classifier, setting the parameters to carry out a max of 500 iterations (more than enough), to use the lbfgs algorithm, because it was the only one I'd heard of from this list, and to provide a verbose output, because I wanted to know what it would tell me. 
+f) I provided the classifier with the training data sets of samples and target classes, and let it do it's thing (took less than a second). 
+g) Checked how well the model had learned the data by using the test data set. 
+h) Turns out he verbose parameter means it tells you how long it took to learn. 
