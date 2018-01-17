@@ -30,7 +30,7 @@ neuralNetClasif = MLPClassifier(hidden_layer_sizes=(7,), activation='logistic', 
 # Train classifier
 neuralNetClasif.fit(X_scaled,y)
 
-# Load test dataset, scale it,  and use classifer to make predictions
+# Load test dataset, scale it, and use classifier to make predictions
 test_data = pd.read_csv('test.csv')
 
 test_data["Age"] = test_data["Age"].fillna(test_data["Age"].median())
@@ -51,4 +51,3 @@ predictions = neuralNetClasif.predict(X_test_scaled)
 # Save test predictions to disk in the format required for kaggle.
 submission = pd.DataFrame({"PassengerId": test_data["PassengerId"], "Survived": predictions})
 submission.to_csv("submission2.csv", index=False)
- 

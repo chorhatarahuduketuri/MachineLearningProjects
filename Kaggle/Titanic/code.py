@@ -24,7 +24,7 @@ logRegClasif = LogisticRegression(max_iter=500, solver='lbfgs')
 # Train classifier
 logRegClasif.fit(X,y)
 
-# Load test dataset and use classifer to make predictions
+# Load test dataset and use classifier to make predictions
 test_data = pd.read_csv('test.csv')
 
 test_data["Age"] = test_data["Age"].fillna(test_data["Age"].median())
@@ -43,4 +43,3 @@ predictions = logRegClasif.predict(X_test)
 # Save test predictions to disk in the format required for kaggle.
 submission = pd.DataFrame({"PassengerId": test_data["PassengerId"], "Survived": predictions})
 submission.to_csv("submission.csv", index=False)
- 
