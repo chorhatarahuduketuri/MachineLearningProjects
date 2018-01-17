@@ -7,7 +7,7 @@ training_data = pd.read_csv('train.csv')
 
 # Data preprocessing and putting into a data structure that can be
 # used by a classifier
-training_data["Age"] = training_data["Age"].fillna(training_data["Age"].median())
+training_data["Age"] = training_data["Age"].fillna(0)
 training_data["Sex"].loc[training_data["Sex"] == "male"] = 0
 training_data["Sex"].loc[training_data["Sex"] == "female"] = 1
 training_data["Embarked"] = training_data["Embarked"].fillna(0)
