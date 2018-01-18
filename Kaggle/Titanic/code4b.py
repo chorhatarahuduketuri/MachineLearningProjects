@@ -28,7 +28,7 @@ logRegClasif = LogisticRegression()
 # Create ranges of parameters
 solvers = ['saga', 'sag', 'liblinear', 'lbfgs', 'newton-cg']
 iterations = [100, 200, 300, 400, 500]
-Cs = np.linspace(1e-4, 1e4)
+Cs = np.linspace(1e-4, 1)
 
 sagaResults = pd.DataFrame(columns=iterations, index=Cs)
 sagResults = pd.DataFrame(columns=iterations, index=Cs)
@@ -76,8 +76,8 @@ for numOfIterations in iterations:
         newtoncgResults[numOfIterations][C] = logRegClasif.score(X_cross_validation, y_cross_validation)
 
 # Save the data for graph making:
-sagaResults.to_csv("submissions_and_results/sagaResults4a.csv")
-sagResults.to_csv("submissions_and_results/sagResults4a.csv")
-liblinearResults.to_csv("submissions_and_results/liblinearResults4a.csv")
-lbfgsResults.to_csv("submissions_and_results/lbfgsResults4a.csv")
-newtoncgResults.to_csv("submissions_and_results/newtoncgResults4a.csv")
+sagaResults.to_csv("submissions_and_results/sagaResults4b.csv")
+sagResults.to_csv("submissions_and_results/sagResults4b.csv")
+liblinearResults.to_csv("submissions_and_results/liblinearResults4b.csv")
+lbfgsResults.to_csv("submissions_and_results/lbfgsResults4b.csv")
+newtoncgResults.to_csv("submissions_and_results/newtoncgResults4b.csv")
