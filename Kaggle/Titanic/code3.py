@@ -22,7 +22,7 @@ y = training_data["Survived"]
 logRegClasif = LogisticRegression(max_iter=500, solver='lbfgs')
 
 # Train classifier
-logRegClasif.fit(X,y)
+logRegClasif.fit(X, y)
 
 # Load test dataset and use classifier to make predictions
 test_data = pd.read_csv('test.csv')

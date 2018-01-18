@@ -1,6 +1,6 @@
 # Imports
-import pandas as pd
 import numpy as np
+import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
@@ -20,15 +20,15 @@ training_data["Embarked"].loc[training_data["Embarked"] == "S"] = 3
 # Generate training and cross validation sets, split two thirds training, one third cross validation
 X = training_data[["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]]
 y = training_data["Survived"]
-X_train, X_cross_validation, y_train, y_cross_validation = train_test_split(X, y, test_size=(1/3.))
+X_train, X_cross_validation, y_train, y_cross_validation = train_test_split(X, y, test_size=(1 / 3.))
 
 # Create classifier with parameters
 logRegClasif = LogisticRegression()
 
 # Create ranges of parameters
 solvers = ['saga', 'sag', 'liblinear', 'lbfgs', 'newton-cg']
-iterations = [100,200,300,400,500]
-Cs = np.linspace(1e-4,1e4)
+iterations = [100, 200, 300, 400, 500]
+Cs = np.linspace(1e-4, 1e4)
 
 sagaResults = pd.DataFrame(columns=iterations, index=Cs)
 sagResults = pd.DataFrame(columns=iterations, index=Cs)
@@ -45,35 +45,35 @@ for numOfIterations in iterations:
     for C in Cs:
         logRegClasif.set_params(max_iter=numOfIterations, solver='saga', C=C)
         logRegClasif.fit(X_train, y_train)
-        sagaResults[numOfIterations][C] = logRegClasif.score(X_cross_validation,y_cross_validation)
+        sagaResults[numOfIterations][C] = logRegClasif.score(X_cross_validation, y_cross_validation)
 
 # sag solver
 for numOfIterations in iterations:
     for C in Cs:
         logRegClasif.set_params(max_iter=numOfIterations, solver='sag', C=C)
         logRegClasif.fit(X_train, y_train)
-        sagResults[numOfIterations][C] = logRegClasif.score(X_cross_validation,y_cross_validation)
+        sagResults[numOfIterations][C] = logRegClasif.score(X_cross_validation, y_cross_validation)
 
 # liblinear solver
 for numOfIterations in iterations:
     for C in Cs:
         logRegClasif.set_params(max_iter=numOfIterations, solver='liblinear', C=C)
         logRegClasif.fit(X_train, y_train)
-        liblinearResults[numOfIterations][C] = logRegClasif.score(X_cross_validation,y_cross_validation)
+        liblinearResults[numOfIterations][C] = logRegClasif.score(X_cross_validation, y_cross_validation)
 
 # lbfgs solver
 for numOfIterations in iterations:
     for C in Cs:
         logRegClasif.set_params(max_iter=numOfIterations, solver='lbfgs', C=C)
         logRegClasif.fit(X_train, y_train)
-        lbfgsResults[numOfIterations][C] = logRegClasif.score(X_cross_validation,y_cross_validation)
+        lbfgsResults[numOfIterations][C] = logRegClasif.score(X_cross_validation, y_cross_validation)
 
 # newton-cg solver
 for numOfIterations in iterations:
     for C in Cs:
         logRegClasif.set_params(max_iter=numOfIterations, solver='newton-cg', C=C)
         logRegClasif.fit(X_train, y_train)
-        newtoncgResults[numOfIterations][C] = logRegClasif.score(X_cross_validation,y_cross_validation)
+        newtoncgResults[numOfIterations][C] = logRegClasif.score(X_cross_validation, y_cross_validation)
 
 # Save the data for graph making:
 sagaResults.to_csv("sagaResults.csv")
@@ -83,9 +83,9 @@ lbfgsResults.to_csv("lbfgsResults.csv")
 newtoncgResults.to_csv("newtoncgResults.csv")
 
 classifier = LogisticRegression()
-classifier.fit(X_train,y_train)
-score = classifier.score(X_cross_validation,y_cross_validation)
-print("Score of default LogisticRegression classifier object: %n", (score)) # 0.787878787879
+classifier.fit(X_train, y_train)
+score = classifier.score(X_cross_validation, y_cross_validation)
+print("Score of default LogisticRegression classifier object: %n", (score))  # 0.787878787879
 
 # # Load test dataset and use classifier to make predictions
 # test_data = pd.read_csv('test.csv')

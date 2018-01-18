@@ -28,7 +28,7 @@ X_scaled = standardScaler.transform(X)
 neuralNetClasif = MLPClassifier(hidden_layer_sizes=(7,), activation='logistic', solver='adam', max_iter=500)
 
 # Train classifier
-neuralNetClasif.fit(X_scaled,y)
+neuralNetClasif.fit(X_scaled, y)
 
 # Load test dataset, scale it, and use classifier to make predictions
 test_data = pd.read_csv('test.csv')
