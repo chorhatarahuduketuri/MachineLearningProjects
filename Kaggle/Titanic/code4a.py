@@ -76,11 +76,11 @@ for numOfIterations in iterations:
         newtoncgResults[numOfIterations][C] = logRegClasif.score(X_cross_validation, y_cross_validation)
 
 # Save the data for graph making:
-sagaResults.to_csv("sagaResults.csv")
-sagResults.to_csv("sagResults.csv")
-liblinearResults.to_csv("liblinearResults.csv")
-lbfgsResults.to_csv("lbfgsResults.csv")
-newtoncgResults.to_csv("newtoncgResults.csv")
+sagaResults.to_csv("submissions_and_results/sagaResults.csv")
+sagResults.to_csv("submissions_and_results/sagResults.csv")
+liblinearResults.to_csv("submissions_and_results/liblinearResults.csv")
+lbfgsResults.to_csv("submissions_and_results/lbfgsResults.csv")
+newtoncgResults.to_csv("submissions_and_results/newtoncgResults.csv")
 
 classifier = LogisticRegression()
 classifier.fit(X_train, y_train)
@@ -105,4 +105,4 @@ print("Score of default LogisticRegression classifier object: %n", (score))  # 0
 #
 # # Save test predictions to disk in the format required for kaggle.
 # submission = pd.DataFrame({"PassengerId": test_data["PassengerId"], "Survived": predictions})
-# submission.to_csv("submission4.csv", index=False)
+# submission.to_csv("submissions_and_results/submission4.csv", index=False)

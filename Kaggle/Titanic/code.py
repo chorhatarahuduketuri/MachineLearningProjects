@@ -42,4 +42,4 @@ predictions = logRegClasif.predict(X_test)
 
 # Save test predictions to disk in the format required for kaggle.
 submission = pd.DataFrame({"PassengerId": test_data["PassengerId"], "Survived": predictions})
-submission.to_csv("submission.csv", index=False)
+submission.to_csv("submissions_and_results/submission.csv", index=False)
