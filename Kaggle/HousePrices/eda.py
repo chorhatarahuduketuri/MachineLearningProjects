@@ -115,7 +115,7 @@ plt.title('SalePrice vs YearRemodAdd')
 plt.savefig('gitIgnoreDir/scatterSalePriceVsYearRemodAdd.png')
 plt.clf()
 
-# TODO: make graphs of correlation between continuous-variable features
+# make graphs of correlation between continuous-variable features
 plt.clf()
 sns.set()
 cols = ['OverallQual', 'GrLivArea', 'GarageCars', 'GarageArea', 'TotalBsmtSF',
@@ -123,7 +123,7 @@ cols = ['OverallQual', 'GrLivArea', 'GarageCars', 'GarageArea', 'TotalBsmtSF',
 sns.pairplot(training_data[cols], size=2.5)
 plt.savefig('gitIgnoreDir/topTenCorrPairPlot.png')
 
-# find out what features correlate with each other very highly 
-
-# TODO: use this for anything that seemed interesting
-#sns.jointplot()
+# find out what features correlate with each other very highly
+corr = training_data.corr()
+print('Correlation of all features with all other features:')
+print(corr)
