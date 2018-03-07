@@ -33,8 +33,13 @@ X = traincsv.drop('SalePrice', 1)
 y = traincsv['SalePrice']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=(1 / 3.))
 
-# TODO: train linear regression model
-# TODO: test linear regression model
+# train linear regression model
+linearRegression.fit(X_train, y_train)
+
+# test linear regression model
+linearRegressionScore = linearRegression.score(X_test, y_test)
+print('Linear Regression Score: ' + str(linearRegressionScore))
+
 # TODO: prepare neural network model
 # TODO: train neural network model
 # TODO: test neural network model
