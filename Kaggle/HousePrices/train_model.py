@@ -1,25 +1,34 @@
 import pandas as pd
+from sklearn import svm
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
-from sklearn import svm
 
-# load the training data
+# LOADING
+# load the training and submission test data
 traincsv = pd.read_csv('train.csv')
+testcsv = pd.read_csv('test.csv')
+# combine them into one for pre-processing
+alldata = pd.concat((traincsv, testcsv))
 
+# PREPROCESSING
 # remove all features that are missing from >1% of data samples (as per eda.py output)
-traincsv.drop(['PoolQC', 'MiscFeature', 'Alley', 'Fence', 'FireplaceQu', 'LotFrontage', 'GarageCond', 'GarageType',
-               'GarageYrBlt', 'GarageFinish', 'GarageQual', 'BsmtExposure', 'BsmtFinType2', 'BsmtFinType1', 'BsmtCond',
-               'BsmtQual', 'MasVnrArea', 'MasVnrType'], axis=1)
+alldata.drop(['PoolQC', 'MiscFeature', 'Alley', 'Fence', 'FireplaceQu', 'LotFrontage', 'GarageCond', 'GarageType',
+              'GarageYrBlt', 'GarageFinish', 'GarageQual', 'BsmtExposure', 'BsmtFinType2', 'BsmtFinType1', 'BsmtCond',
+              'BsmtQual', 'MasVnrArea', 'MasVnrType'], axis=1)
 # delete all data samples that have missing feature data (where the feature data is missing from <1% of all data samples)
-indexOfNullElectricalSample = traincsv.loc[traincsv['Electrical'].isnull()].index
-traincsv = traincsv.drop(index=indexOfNullElectricalSample)
+indexOfNullElectricalSample = alldata.loc[alldata['Electrical'].isnull()].index
+alldata = alldata.drop(index=indexOfNullElectricalSample)
 
 # get the categorical data into a numerical form (use the dummy function)
-traincsv = pd.get_dummies(traincsv)
+alldata = pd.get_dummies(alldata)
 
 # fill in all remaining NAN values with the mean of that column
-traincsv = traincsv.fillna(traincsv.mean())
+alldata = alldata.fillna(alldata.mean())
+
+# separate the training and submission test data again
+trainingX = alldata[:1459]
+testingX = alldata[1459:].drop('SalePrice', 1)
 
 # create X and y for the training
 X = traincsv.drop('SalePrice', 1)
@@ -56,3 +65,6 @@ svmClassifier.fit(X_train, y_train)
 # test SVM model
 svmClassifierScore = svmClassifier.score(X_test, y_test)
 print('SVM SVC score: ' + str(svmClassifierScore))
+
+# PREDICT SUBMISSION
+predictions = linearRegression.predict(testingX)
