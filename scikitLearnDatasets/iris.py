@@ -18,3 +18,5 @@ print(str(data.shape))
 print('Target data shape:')
 print(str(target.shape))
 
+from scipy import stats
+stats.describe(data)

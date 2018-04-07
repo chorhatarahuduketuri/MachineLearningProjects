@@ -38,6 +38,19 @@ From that, I've learnt that this multivariate dataset has three classes in it, w
 Now, I'm going to load it into memory and take a look at the data itself. 
 The data is in the order of Sepal Length, Sepal Width, Petal Length and Petal Width along four columns, ordered with the first 50 being class zero (Setosa), the second fifty being class one (Versicolour), and the last 50 being class two (Virginica).
 
+Using the `sklearn.stats` package, I ascertained the following:
 
+thing | Sepal length (cm) | Sepal width (cm) | Petal length (cm) | Petal width (cm)
+ --- | --- | --- | --- | --- 
+Minimum | 4.3 | 2.0 | 1.0 | 0.1
+Maximum | 7.9 | 4.4 | 6.9 | 2.5
+Mean | 5.84 | 3.05 | 3.76 | 1.20
+Variance | 0.69 | 0.19 |  3.11 |  0.58
+Skewness | 0.31 | 0.33 | -0.27 | -0.10
+Kurtosis | 0.57 | 0.24 | -1.40 | -1.34
 
-  
+The min/max/mean information is not really very interesting, as they're all within a small range of orders of magnitude, so shouldn't cause any problems for the algorithms. \
+Skewness is a measurement of which side of the mean most of the data points lie. If most of the data points are higher than the mean, then it has a negative skew. Conversly, if most of the data points are lower than the mean, it has a positive skew. Skewness is calculated by subtracting the median from the mean, then dividing by the standard deviation. \
+Kurtosis describes the tailedness of a distribution of data points, where a positive value indicates that a lot of the data points exist in the tails of a distribution, whereas a negative value describes a distribution with the minority of the data points in the tails. High kurtosis scores can indicate a problem with outliers. Kurtosis is calculated in a variety of complicated ways, none of which I'm going to go into here, since I'm more interested in knowing if it means I have to do something to get a good model, rather than exactly how it works. \
+Since these two things basically describe how normal a distribution of data points is, and most algorithms work better with more normal distributions, I will come back to this if I fail to get good results later, otherwise I'm not really interested in them at this point.
+
