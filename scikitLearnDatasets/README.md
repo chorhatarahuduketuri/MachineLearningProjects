@@ -54,3 +54,17 @@ Skewness is a measurement of which side of the mean most of the data points lie.
 Kurtosis describes the tailedness of a distribution of data points, where a positive value indicates that a lot of the data points exist in the tails of a distribution, whereas a negative value describes a distribution with the minority of the data points in the tails. High kurtosis scores can indicate a problem with outliers. Kurtosis is calculated in a variety of complicated ways, none of which I'm going to go into here, since I'm more interested in knowing if it means I have to do something to get a good model, rather than exactly how it works. \
 Since these two things basically describe how normal a distribution of data points is, and most algorithms work better with more normal distributions, I will come back to this if I fail to get good results later, otherwise I'm not really interested in them at this point.
 
+In an effort to better understand the data, I will graph all three classes of each of the four features on histograms, to better compare the data relative to each other and spot any obvious features of the dataset.\
+Graph 1: Sepal length\
+![Sepal Length Histogram](https://github.com/chorhatarahuduketuri/MachineLearningProjects/sepalLength.png "Sepal Length Histogram")
+The sepal lengths graph shows that all three species of flower have sepals of similar lengths, and I can see why a classification algorithm might give so-so results based on this feature alone. \
+Graph 2: Sepal width\
+![Sepal Width Histogram](https://github.com/chorhatarahuduketuri/MachineLearningProjects/sepalWidth.png "Sepal Width Histogram")
+The sepal widths graph shows that Versicolor and Virginica are very similar, and shows why a clustering algorithm might not be able to easily separate them based on this feature. \
+Graph 3: Petal length\
+![Petal Length Histogram](https://github.com/chorhatarahuduketuri/MachineLearningProjects/petalLength.png "Petal Length Histogram")
+The petal length graph is much easier to tell the three species apart on, especially the Setosa which stands distinctly apart from the other two, which overlap slightly. \
+Graph 4: Petal width\
+![Petal Width Histogram](https://github.com/chorhatarahuduketuri/MachineLearningProjects/petalWidth.png "Petal Width Histogram")
+The petal width graph is much like the petal length histogram, in that the Versicolor and Viriginica species overlap slightly, but the Setosa is cleanly separated to the lower end of the range.
+
