@@ -68,3 +68,16 @@ Graph 4: Petal width\
 ![Petal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/petalWidth.png "Petal Width Histogram")
 The petal width graph is much like the petal length histogram, in that the Versicolor and Viriginica species overlap slightly, but the Setosa is cleanly separated to the lower end of the range.
 
+##### Step four
+The fourth step is to 'consider what sorts of models would be appropriate, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'\
+Obviously a supervised classification algorithm will be necessary, since the objective is classification and there is target data. Naively, I would assume logistic regression would be suitable, perhaps with polynomial features being necessary, however from reading the Wikipedia page of its history, I know that it is an excellent example of a non-linearly separable dataset, so the performance of logistic regression, even with polynomial feature engineering, may be poor. As a result of this, in addition to the use of logistic regression, I will use support vector machines to see how that model compares.\
+As part of step four, I will standardise the data, as well as generate several polynomial features in case they are necessary for any of the algorithms I end up using.\
+I will use training feature sets containing up to 1st, 2nd, and 3rd degree polynomial features. 
+
+##### Step five 
+'Design, create, and/or train the model'\
+###### Logistic Regression
+After creating three separate logistic regression models, all of which use the L-BFGS algorithm, a one-versus-rest multiclass strategy, and train for up to 500 iterations, I trained all three models on the 1st, 2nd, and 3rd degree polynomial training sets.\
+All three models attain accuracy scores in the 0.9 - 1.0 range, with f1 scores in the same range. This suggests that linear regression is very good for this particular application. 
+
+###### Support Vector Machines
