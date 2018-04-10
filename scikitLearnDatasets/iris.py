@@ -122,20 +122,52 @@ lr1.fit(X_train, y_train)
 lr2.fit(X_train_poly_2, y_train)
 lr3.fit(X_train_poly_3, y_train)
 
-y_pred_1 = lr1.predict(X_test)
-y_pred_2 = lr2.predict(X_test_poly_2)
-y_pred_3 = lr3.predict(X_test_poly_3)
+y_lr_pred_1 = lr1.predict(X_test)
+y_lr_pred_2 = lr2.predict(X_test_poly_2)
+y_lr_pred_3 = lr3.predict(X_test_poly_3)
 
 from sklearn.metrics import accuracy_score
 
-print(accuracy_score(y_test, y_pred_1))
-print(accuracy_score(y_test, y_pred_2))
-print(accuracy_score(y_test, y_pred_3))
+print('Logistic Regression: ')
+print(accuracy_score(y_test, y_lr_pred_1))
+print(accuracy_score(y_test, y_lr_pred_2))
+print(accuracy_score(y_test, y_lr_pred_3))
 
 from sklearn.metrics import classification_report
 
-print(classification_report(y_test, y_pred_1))
-print(classification_report(y_test, y_pred_2))
-print(classification_report(y_test, y_pred_3))
+print(classification_report(y_test, y_lr_pred_1))
+print(classification_report(y_test, y_lr_pred_2))
+print(classification_report(y_test, y_lr_pred_3))
 
 # Support Vector Machine
+from sklearn.svm import SVC
+
+svc1 = SVC(max_iter=500)
+svc2 = SVC(max_iter=500)
+svc3 = SVC(max_iter=500)
+
+svc1.fit(X_train, y_train)
+svc2.fit(X_train_poly_2, y_train)
+svc3.fit(X_train_poly_3, y_train)
+
+y_svc_pred_1 = svc1.predict(X_test)
+y_svc_pred_2 = svc2.predict(X_test_poly_2)
+y_svc_pred_3 = svc3.predict(X_test_poly_3)
+
+print('Support Vector Machine: ')
+print(accuracy_score(y_test, y_svc_pred_1))
+print(accuracy_score(y_test, y_svc_pred_2))
+print(accuracy_score(y_test, y_svc_pred_3))
+print(classification_report(y_test, y_svc_pred_1))
+print(classification_report(y_test, y_svc_pred_2))
+print(classification_report(y_test, y_svc_pred_3))
+
+from sklearn.externals import joblib
+
+joblib.dump(lr1, 'gitIgnoreDir/lr1.pkl')
+joblib.dump(lr2, 'gitIgnoreDir/lr2.pkl')
+joblib.dump(lr3, 'gitIgnoreDir/lr3.pkl')
+
+joblib.dump(svc1, 'gitIgnoreDir/svc1.pkl')
+joblib.dump(svc2, 'gitIgnoreDir/svc2.pkl')
+joblib.dump(svc3, 'gitIgnoreDir/svc3.pkl')

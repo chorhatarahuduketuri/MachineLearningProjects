@@ -78,6 +78,27 @@ I will use training feature sets containing up to 1st, 2nd, and 3rd degree polyn
 'Design, create, and/or train the model'\
 ###### Logistic Regression
 After creating three separate logistic regression models, all of which use the L-BFGS algorithm, a one-versus-rest multiclass strategy, and train for up to 500 iterations, I trained all three models on the 1st, 2nd, and 3rd degree polynomial training sets.\
-All three models attain accuracy scores in the 0.9 - 1.0 range, with f1 scores in the same range. This suggests that linear regression is very good for this particular application. 
 
 ###### Support Vector Machines
+All the data preparation having already been done for logistic regression, implementing straight forward support vector machines was simple.\
+
+##### Step six
+###### Logistic Regression 
+All three models attain accuracy scores in the 0.9 - 1.0 range, with f1 scores in the same range. This suggests that linear regression is very good for this particular application.
+
+###### Support Vector Machines
+The accuracy of 1st degree polynomial features (basically, the original data, unaltered), is near perfect. Accuracy with 2nd and 3rd degree polynomial feature engineering, is very poor. As bad as as 0.51 in some cases.
+
+##### Step seven
+'Hyperparameter turning (improving model performance). Algorithm tuning, ensemble methods.'\
+This is unnecessary, as accuracy with both linear regression and SVM is near perfect. 
+
+##### Step eight
+'Prediction: make actual predictions on actual data and test it's real world performance.'\
+Since this is only for training, and I have used the entire dataset, this step seems unnecessary in unfeasible.\
+'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'
+This writeup is my presentation of my work and what I have achieved. It has been instructive and encouraging, in that actually having a framework and a step-by-step plan, even one as generalistic as this one, is extremely helpful in getting the project completed without getting lost among the seemingly infinite details and options of machine learning.
+
+##### Step nine
+'Deployment to a production environment.'\
+As with the first part of step eight, I deem this step unnecessary, due to this being a training project with no useful real world application that I can put it to at this time. Hopefully, after my first six training projects, I will be able to attempt to install some trained model in some real world system of some kind, even if contrived and not really practically useful, just for the experience of having done so. 
