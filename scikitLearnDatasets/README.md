@@ -56,16 +56,16 @@ Since these two things basically describe how normal a distribution of data poin
 
 In an effort to better understand the data, I will graph all three classes of each of the four features on histograms, to better compare the data relative to each other and spot any obvious features of the dataset.\
 Graph 1: Sepal length\    
-![Sepal Length Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/sepalLength.png "Sepal Length Histogram")
+![Sepal Length Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/sepalLength.png "Sepal Length Histogram")
 The sepal lengths graph shows that all three species of flower have sepals of similar lengths, and I can see why a classification algorithm might give so-so results based on this feature alone. \
 Graph 2: Sepal width\
-![Sepal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/sepalWidth.png "Sepal Width Histogram")
+![Sepal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/sepalWidth.png "Sepal Width Histogram")
 The sepal widths graph shows that Versicolor and Virginica are very similar, and shows why a clustering algorithm might not be able to easily separate them based on this feature. \
 Graph 3: Petal length\
-![Petal Length Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/petalLength.png "Petal Length Histogram")
+![Petal Length Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/petalLength.png "Petal Length Histogram")
 The petal length graph is much easier to tell the three species apart on, especially the Setosa which stands distinctly apart from the other two, which overlap slightly. \
 Graph 4: Petal width\
-![Petal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/petalWidth.png "Petal Width Histogram")
+![Petal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/petalWidth.png "Petal Width Histogram")
 The petal width graph is much like the petal length histogram, in that the Versicolor and Viriginica species overlap slightly, but the Setosa is cleanly separated to the lower end of the range.
 
 ##### Step four
@@ -110,11 +110,11 @@ In this case, the business problem is accurately predicting weather or not a tum
 This is a supervised classification problem. 
 
 ##### Step two
-'Locate and acquire relevant datasets'
+'Locate and acquire relevant datasets'\
 This dataset is available via the import of `sklearn.datasets`. 
 
 ##### Step three
-'Perform an EDA of the datasets - including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'\
+'Perform an EDA of the datasets - including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'
 
 ###### EDA
 Wikipedia doesn't have an entry on this dataset like it did for the Iris dataset, but the description that comes with it in the code is interesting.\
@@ -131,10 +131,11 @@ There were only ten measurements made about each tumour:
 - symmetry
 - fractal dimension ("coastline approximation" - 1)
 
-I had naively assumed that these features described aspects of the tumours themselves, but they in fact describe characteristics of the cell nuclei present in the image. They were computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. I have for years (I first encountered this during my academic education at least 6 years ago) laboured under the false impression that this dataset described tumour characteristics, not the characteristics of nuclei from cells in the tumour. \
+I had naively assumed that these features described aspects of the tumours themselves, but they in fact describe characteristics of the cell nuclei present in the image. They were computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. I have for years (I first encountered this during my academic education at least 6 years ago) lived with the false belief that this dataset described tumour characteristics, not the characteristics of nuclei from cells in the tumour. \
 Due to these readings being taken from 2D image data (a medical scan image), and those images not being perfect themselves, nor of perfectly uniform, symmetrical objects, 30 features were derived from statistics calculated from measurements of those 2D images.\
 For example, the images of the nuclei aren't perfect circles, so the radius is measured several times at different orientations, and the mean is taken. The standard error of those readings is also included, along with the 'worst' reading, which is actually the mean of the largest three taken for that feature for that data point.\
 The first ten features are all the means, the second ten are the standard errors, and the third ten features are the worst.\
+I have no idea what unit of measurement these readings were taken in. 
 
 | Statistical Attribute | Mean Radius | Mean Texture | Mean Perimeter | Mean Area | Mean Smoothness | Mean Compactness | Mean Concavity | Mean Concave Points | Mean Symmetry | Mean Fractal Dimension | Radius Error | Texture Error | Perimeter Error | Area Error | Smoothness Error | Compactness Error | Concavity Error | Concave Points Error | Symmetry Error | Fractal Dimension Error | Worst Radius | Worst Texture | Worst Perimeter | Worst Area | Worst Smoothness | Worst Compactness | Worst Concavity | Worst Concave Points | Worst Symmetry | Worst Fractal Dimension |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -144,4 +145,35 @@ The first ten features are all the means, the second ten are the standard errors
 | Variance |  1.24189201e+01 |   1.84989087e+01 |   5.90440480e+02 |         1.23843554e+05 |   1.97799700e-04 |   2.78918740e-03 |         6.35524790e-03 |   1.50566077e-03 |   7.51542821e-04 |         4.98487228e-05 |   7.69023519e-02 |   3.04315949e-01 |         4.08789584e+00 |   2.06943158e+03 |   9.01511400e-06 |         3.20702887e-04 |   9.11198238e-04 |   3.80724191e-05 |         6.83328983e-05 |   7.00169156e-06 |   2.33602242e+01 |         3.77764828e+01 |   1.12913085e+03 |   3.24167385e+05 |         5.21319833e-04 |   2.47547707e-02 |   4.35240905e-02 |         4.32074068e-03 |   3.82758354e-03 |   3.26209378e-04 |
 | Skewness | 0.93989345 |  0.64873357 |  0.98803695 |  1.64139051 |  0.45511992 |        1.18698332 |  1.39748324 |  1.16809035 |  0.72369472 |  1.30104739 |        3.08046399 |  1.64210026 |  3.43453047 |  5.43281586 |  2.30834422 |        1.89720239 |  5.09698095 |  1.44086689 |  2.18934184 |  3.91361665 |        1.10020504 |  0.49700667 |  1.12518762 |  1.85446799 |  0.41433005 |        1.46966746 |  1.14720234 |  0.49131594 |  1.43014487 |  1.65819316 |
 | Kurtosis |  0.82758367 |   0.74114542 |   0.95316505 |   3.60976126 |         0.83794535 |   1.62513952 |   1.97059165 |   1.04668022 |         1.26611697 |   2.9690169  |  17.52116219 |   5.29175289 |        21.20377481 |  48.76719561 |  10.3675372  |   5.05096602 |        48.42256209 |   5.07083973 |   7.81638799 |  26.03994977 |         0.9252876  |   0.21180938 |   1.05024268 |   4.3473308  |         0.50275975 |   3.00212021 |   1.59056807 |  -0.54136707 |         4.39507329 |   5.18811128 |
+
+The Skewness and Kurtosis measurements range from very small values (0.21) to very large values (48.77), and this suggests that the data should be mean normalised, to alter its 'shape' into something closer to a normal distribution. The min/max and mean differences also vary widely, by several orders of magnitude in some cases, which further suggests that most algorithms (certainly any that I'm going to use here) would benefit from the data being rearranged into a more symmetrical, normal shape. 
+
+To further explore the data, I will create some graphs to see if there is anything of particular interest to be found by doing so. \
+The first thing I've done is create straight forward histograms of each feature over the entire dataset, to view the skewness and kurtosis. The following selection of graphs show some of of the distributions I found interesting. 
+
+###### Mean graphs
+Graph 1: Mean area\    
+![Mean Area](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_area.png "Mean Area Histogram")
+
+Graph 2: Mean concave points\
+![Mean Concave Points](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_concave_points.png "Mean Concave Points Histogram")
+
+Graph 3: Mean smoothness\
+![Mean Smoothness](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_smoothness.png "Mean Smoothness Histogram")
+
+
+###### Error graphs
+Graph 4: Area error\
+![Area Error Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_area_error.png "Area Error Histogram")
+
+Graph 5: Concave points error\    
+![Concave Points Error Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_concave_points_error.png "Concave Points Error Histogram")
+
+
+###### Worst graphs
+Graph 6: Worst area\
+![Worst Area Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_worst_area.png "Worst Area Histogram")
+
+Graph 7: Worst smoothness\
+![Worst Smoothness Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_worst_smoothness.png "Worst Smoothness Histogram")
 
