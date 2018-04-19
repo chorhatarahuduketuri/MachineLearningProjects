@@ -152,28 +152,73 @@ To further explore the data, I will create some graphs to see if there is anythi
 The first thing I've done is create straight forward histograms of each feature over the entire dataset, to view the skewness and kurtosis. The following selection of graphs show some of of the distributions I found interesting. 
 
 ###### Mean graphs
-Graph 1: Mean area\    
+Graph 1: Mean area\
 ![Mean Area](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_area.png "Mean Area Histogram")
-
+As you can see from this histogram of the mean area of the nuclei, the data is somewhat negatively skewed. I think it is a better way to put it to say, that the _mean_ of the data is negatively skewed, in that the mean is lower than the median.\
 Graph 2: Mean concave points\
 ![Mean Concave Points](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_concave_points.png "Mean Concave Points Histogram")
-
+The mean concave points are even more negatively skewed than the mean area.\
 Graph 3: Mean smoothness\
 ![Mean Smoothness](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_smoothness.png "Mean Smoothness Histogram")
-
+The mean smoothness has much less skew, and so looks more similar to a normal distribution. It has a very similar kurtosis score to the mean area, which indicates that as similar proportions of the data points lie in the centre of the bell curve, as lie in the tails, in both distributions. \
+Remember that a higher kurtosis score indicates that a greater proportion of the data is in the centre of the bell curve, and a lower score indicates the opposite, such that the height of the bell would be lower, and the tails would be longer. 
 
 ###### Error graphs
 Graph 4: Area error\
 ![Area Error Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_area_error.png "Area Error Histogram")
-
-Graph 5: Concave points error\    
+As you can see from the graph, the area error not only has a strongly negative skew, but also a very high kurtosis score (48.77).\
+Graph 5: Concave points error\
 ![Concave Points Error Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_concave_points_error.png "Concave Points Error Histogram")
-
+The concave points error data, while having some of the lowest scores of the error features, still has significant skew and kurtosis scores. 
 
 ###### Worst graphs
 Graph 6: Worst area\
 ![Worst Area Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_worst_area.png "Worst Area Histogram")
-
+The worst area data shows significant skew and high kurtosis (though still much lower than area error), and learning algorithms could benefit from this data being mean normalised before being fed into them. \
 Graph 7: Worst smoothness\
 ![Worst Smoothness Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_worst_smoothness.png "Worst Smoothness Histogram")
+Having some of the lowest scores of the worst data features, the smoothness has both low skew and low kurtosis. 
 
+I have considered further graphical exploration or other analysis of the data prior to model selection, and I will not do any more. This is for two reasons. The first is that I wish to keep these analyses simple and short, so that I gain experience in starting ML projects, carrying them out, and _finishing_ them. The second is that I do not believe any further analysis will cause me to change anything I think I am likely to do going forward during this project. 
+
+##### Step four
+The fourth step is to 'consider what sorts of models would be appropriate, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'\
+Given that this is a classification problem with 596 labelled data points I should use linear SVC, according to scikit learn's algorithm selection cheat-sheet.\
+I will use linear SVC. However, due to the ease of implementation, as in the Iris analysis I will use logistic regression as well.\
+I will also mean normalise the training data now, and split it into 70% training data, and 30% testing data.
+As with the Iris analysis, I will also generate polynomial features, although only up to the 2nd degree (due to number of features), to see if this increases accuracy. 
+
+##### Step five 
+'Design, create, and/or train the model'\
+###### Logistic Regression
+I created two logistic regression models, one for the unmodified data, and one for the 2nd degree polynomial data. 
+
+###### Support Vector Machines
+For the SVMs, I used the SVC model instead of the LinearSVC model. This is because I wanted to compare the effectiveness of the radial basis function 'RBF' kernel against that of the linear kernel. The RBF kernel is the default, and is the one used in the Iris analysis. SVC(kernel='linear') is equivalent to LinearSVC, so it simplifies the code to only import and use SVC, then specify the desired kernel in the parameters.
+
+##### Step six
+'Evaluation of model on Validation set'\
+In both cases I used the `accuracy_score` and `classification_report` functions from the `sklearn.metrics` package. 
+###### Logistic Regression 
+The accuracy of logistic regression with 1st order features varied around the 0.97 mark, which is gratifyingly high. With 2nd order features, it was around 0.96.\
+F1 scores are numerically similar to the accuracy scores, which is a good sign. 
+
+###### Support Vector Machines
+The accuracy of SVMs with linear kernels using 1st order features was consistently similar to logistic regression with 1st order features. With 2nd order features however, it varied between the same as logistic regression, and up to 0.1 lower.\
+F1 scores are numerically similar to the accuracy scores, which is good, though they are always a little lower for 2nd order features. 
+With the RBF kernel, the accuracy with 1st order features was usually as good as the linear classifiers with the same data, but I haven't seen it outperform them. With 2nd order features, it is consistently worse, by as much as 0.1.\
+F1 scores are similar to the accuracy scores for 1st order features, but usually even lower than the accuracy scores for 2nd order features.
+
+##### Step seven
+'Hyperparameter turning (improving model performance). Algorithm tuning, ensemble methods.'\
+I find this to be an unnecessary step in this project, as none of the classifiers used had particularly complex parameters specified.\
+Additionally, since a satisfactorily high level of accuracy has shown to be achievable using logistic regression, I don't feel the need to improve on what has already been done.
+
+##### Step eight
+'Prediction: make actual predictions on actual data and test it's real world performance.'\
+'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'\
+This writeup is my presentation of my work and what has been achieved. It has been proven to be a positive progression from the Iris analysis, showing that my methodology is effective for getting projects _done_.
+
+##### Step nine
+'Deployment to a production environment.'\
+I do not need to deploy the trained models from this to any production environment. Pushing this writeup to github could be considered to be deployment to production, if you wanted to stretch definitions somewhat.

@@ -64,3 +64,107 @@ for i in range(0, 10):
             ylabel='Number of data points',
             xlabel='Worst measurements')
     fig1.savefig('gitIgnoreDir/breast_cancer/histograms/worst/hist_' + worst_names[i].replace(' ', '_') + '.png')
+
+# Step 4 - Model selection and feature engineering
+# Create training and test sets
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.3)
+
+# Standardise the training and test data (mean normalisation)
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler().fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Generate 2nd order polynomial features
+from sklearn.preprocessing import PolynomialFeatures
+
+poly = PolynomialFeatures(2)
+poly.fit_transform(X_train)
+X_train_poly = poly.transform(X_train)
+X_test_poly = poly.transform(X_test)
+
+# Step 5 - Model creation and training
+# Logistic regression
+from sklearn.linear_model import LogisticRegression
+
+lr1 = LogisticRegression(solver='lbfgs', max_iter=500)
+lr2 = LogisticRegression(solver='lbfgs', max_iter=500)
+
+lr1.fit(X_train, y_train)
+lr2.fit(X_train_poly, y_train)
+
+y_lr_pred_1 = lr1.predict(X_test)
+y_lr_pred_2 = lr2.predict(X_test_poly)
+
+# Support Vector Machines
+from sklearn.svm import SVC
+
+svc_linear_1 = SVC(kernel='linear', max_iter=500)
+svc_linear_2 = SVC(kernel='linear', max_iter=500)
+
+svc_rbf_1 = SVC(kernel='rbf', max_iter=500)
+svc_rbf_2 = SVC(kernel='rbf', max_iter=500)
+
+svc_linear_1.fit(X_train, y_train)
+svc_linear_2.fit(X_train_poly, y_train)
+
+svc_rbf_1.fit(X_train, y_train)
+svc_rbf_2.fit(X_train_poly, y_train)
+
+y_svc_linear_pred_1 = svc_linear_1.predict(X_test)
+y_svc_linear_pred_2 = svc_linear_2.predict(X_test_poly)
+
+y_svc_rbf_pred_1 = svc_rbf_1.predict(X_test)
+y_svc_rbf_pred_2 = svc_rbf_2.predict(X_test_poly)
+
+# Step 6 - model evaluation
+from sklearn.metrics import accuracy_score, classification_report
+
+# Logistic regression
+print('Accuracy Score, Linear Regression, 1st order features: ')
+print(accuracy_score(y_test, y_lr_pred_1))
+print('Accuracy Score, Linear Regression, 2nd order features: ')
+print(accuracy_score(y_test, y_lr_pred_2))
+
+print('Classification Report, Linear Regression, 1st order features: ')
+print(classification_report(y_test, y_lr_pred_1))
+print('Classification Report, Linear Regression, 2nd order features: ')
+print(classification_report(y_test, y_lr_pred_2))
+
+# Suport Vector Machines
+# Linear
+print('Accuracy Score, SVM, Linear kernel, 1st order features: ')
+print(accuracy_score(y_test, y_svc_linear_pred_1))
+print('Accuracy Score, SVM, Linear kernel, 2nd order features: ')
+print(accuracy_score(y_test, y_svc_linear_pred_2))
+
+print('Classification Report, SVM, Linear kernel, 1st order features: ')
+print(classification_report(y_test, y_svc_linear_pred_1))
+print('Classification Report, SVM, Linear kernel, 2nd order features: ')
+print(classification_report(y_test, y_svc_linear_pred_2))
+
+# RBF
+print('Accuracy Score, SVM, RBF kernel, 1st order features: ')
+print(accuracy_score(y_test, y_svc_rbf_pred_1))
+print('Accuracy Score, SVM, RBF kernel, 2nd order features: ')
+print(accuracy_score(y_test, y_svc_rbf_pred_2))
+
+print('Classification Report, SVM, RBF kernel, 1st order features: ')
+print(classification_report(y_test, y_svc_rbf_pred_1))
+print('Classification Report, SVM, RBF kernel, 2nd order features: ')
+print(classification_report(y_test, y_svc_rbf_pred_2))
+
+# Save the models somewhere
+from sklearn.externals import joblib
+
+joblib.dump(lr1, 'gitIgnoreDir/breast_cancer/lr1.pkl')
+joblib.dump(lr2, 'gitIgnoreDir/breast_cancer/lr2.pkl')
+
+joblib.dump(svc_linear_1, 'gitIgnoreDir/breast_cancer/svc_linear_1.pkl')
+joblib.dump(svc_linear_2, 'gitIgnoreDir/breast_cancer/svc_linear_2.pkl')
+
+joblib.dump(svc_rbf_1, 'gitIgnoreDir/breast_cancer/svc_rbf_1.pkl')
+joblib.dump(svc_rbf_2, 'gitIgnoreDir/breast_cancer/svc_rbf_2.pkl')
