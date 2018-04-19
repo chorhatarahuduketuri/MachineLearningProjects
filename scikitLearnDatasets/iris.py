@@ -100,7 +100,7 @@ standardized_X_test = scaler.transform(X_test)
 from sklearn.preprocessing import PolynomialFeatures
 
 # 2nd degree polynomials
-poly_2 = PolynomialFeatures(3)
+poly_2 = PolynomialFeatures(2)
 poly_2.fit(X_train)
 X_train_poly_2 = poly_2.transform(X_train)
 X_test_poly_2 = poly_2.transform(X_test)
