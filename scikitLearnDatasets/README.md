@@ -87,7 +87,7 @@ All the data preparation having already been done for logistic regression, imple
 All three models attain accuracy scores in the 0.9 - 1.0 range, with f1 scores in the same range. This suggests that linear regression is very good for this particular application.
 
 ###### Support Vector Machines
-The accuracy of 1st degree polynomial features (basically, the original data, unaltered), is near perfect. Accuracy with 2nd and 3rd degree polynomial feature engineering, is very poor. As bad as as 0.51 in some cases.
+The accuracy of 1st degree polynomial features (basically, the original data, unaltered), is near perfect. Accuracy with 2nd and 3rd degree polynomial feature engineering, ~~is very poor. As bad as as 0.51 in some cases.~~ is, now I've corrected the code to use the mean normalised training data, actually really good, around 0.02 better than without any mean normalisation. The F1 scores are similarly improved. These numbers are all still around 0.90 to 0.95, but it's a lot better than when the code was wrong. 
 
 ##### Step seven
 'Hyperparameter turning (improving model performance). Algorithm tuning, ensemble methods.'\

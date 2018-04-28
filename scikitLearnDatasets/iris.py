@@ -101,14 +101,14 @@ from sklearn.preprocessing import PolynomialFeatures
 
 # 2nd degree polynomials
 poly_2 = PolynomialFeatures(2)
-poly_2.fit(X_train)
-X_train_poly_2 = poly_2.transform(X_train)
-X_test_poly_2 = poly_2.transform(X_test)
+poly_2.fit(standardised_X)
+X_train_poly_2 = poly_2.transform(standardised_X)
+X_test_poly_2 = poly_2.transform(standardized_X_test)
 # 3rd degree polynomials
 poly_3 = PolynomialFeatures(3)
-poly_3.fit(X_train)
-X_train_poly_3 = poly_3.transform(X_train)
-X_test_poly_3 = poly_3.transform(X_test)
+poly_3.fit(standardised_X)
+X_train_poly_3 = poly_3.transform(standardised_X)
+X_test_poly_3 = poly_3.transform(standardized_X_test)
 
 # Step 5 - Model creation and training
 # Logistic Regression
@@ -118,11 +118,11 @@ lr1 = LogisticRegression(solver='lbfgs', multi_class='ovr', max_iter=500)
 lr2 = LogisticRegression(solver='lbfgs', multi_class='ovr', max_iter=500)
 lr3 = LogisticRegression(solver='lbfgs', multi_class='ovr', max_iter=500)
 
-lr1.fit(X_train, y_train)
+lr1.fit(standardised_X, y_train)
 lr2.fit(X_train_poly_2, y_train)
 lr3.fit(X_train_poly_3, y_train)
 
-y_lr_pred_1 = lr1.predict(X_test)
+y_lr_pred_1 = lr1.predict(standardized_X_test)
 y_lr_pred_2 = lr2.predict(X_test_poly_2)
 y_lr_pred_3 = lr3.predict(X_test_poly_3)
 
@@ -146,11 +146,11 @@ svc1 = SVC(max_iter=500)
 svc2 = SVC(max_iter=500)
 svc3 = SVC(max_iter=500)
 
-svc1.fit(X_train, y_train)
+svc1.fit(standardised_X, y_train)
 svc2.fit(X_train_poly_2, y_train)
 svc3.fit(X_train_poly_3, y_train)
 
-y_svc_pred_1 = svc1.predict(X_test)
+y_svc_pred_1 = svc1.predict(standardized_X_test)
 y_svc_pred_2 = svc2.predict(X_test_poly_2)
 y_svc_pred_3 = svc3.predict(X_test_poly_3)
 
