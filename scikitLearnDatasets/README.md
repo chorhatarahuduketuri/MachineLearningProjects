@@ -75,7 +75,7 @@ As part of step four, I will standardise the data, as well as generate several p
 I will use training feature sets containing up to 1st, 2nd, and 3rd degree polynomial features. 
 
 ##### Step five 
-'Design, create, and/or train the model'\
+'Design, create, and/or train the model'
 ###### Logistic Regression
 After creating three separate logistic regression models, all of which use the L-BFGS algorithm, a one-versus-rest multiclass strategy, and train for up to 500 iterations, I trained all three models on the 1st, 2nd, and 3rd degree polynomial training sets.\
 
@@ -95,7 +95,7 @@ This is unnecessary, as accuracy with both linear regression and SVM is near per
 
 ##### Step eight
 'Prediction: make actual predictions on actual data and test it's real world performance.'\
-Since this is only for training, and I have used the entire dataset, this step seems unnecessary in unfeasible.\
+Since this is only for training, and I have used the entire dataset, this step seems unnecessary and unfeasible.\
 'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'
 This writeup is my presentation of my work and what I have achieved. It has been instructive and encouraging, in that actually having a framework and a step-by-step plan, even one as generalistic as this one, is extremely helpful in getting the project completed without getting lost among the seemingly infinite details and options of machine learning.
 
@@ -184,17 +184,17 @@ I have considered further graphical exploration or other analysis of the data pr
 ##### Step four
 The fourth step is to 'consider what sorts of models would be appropriate, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'\
 Given that this is a classification problem with 596 labelled data points I should use linear SVC, according to scikit learn's algorithm selection cheat-sheet.\
-I will use linear SVC. However, due to the ease of implementation, as in the Iris analysis I will use logistic regression as well.\
+I will use linear SVC. However, due to the ease of implementation, as in the Iris project I will use logistic regression as well.\
 I will also mean normalise the training data now, and split it into 70% training data, and 30% testing data.
-As with the Iris analysis, I will also generate polynomial features, although only up to the 2nd degree (due to number of features), to see if this increases accuracy. 
+As with the Iris project, I will also generate polynomial features, although only up to the 2nd degree (due to number of features), to see if this increases accuracy. 
 
 ##### Step five 
-'Design, create, and/or train the model'\
+'Design, create, and/or train the model'
 ###### Logistic Regression
 I created two logistic regression models, one for the unmodified data, and one for the 2nd degree polynomial data. 
 
 ###### Support Vector Machines
-For the SVMs, I used the SVC model instead of the LinearSVC model. This is because I wanted to compare the effectiveness of the radial basis function 'RBF' kernel against that of the linear kernel. The RBF kernel is the default, and is the one used in the Iris analysis. SVC(kernel='linear') is equivalent to LinearSVC, so it simplifies the code to only import and use SVC, then specify the desired kernel in the parameters.
+For the SVMs, I used the SVC model instead of the LinearSVC model. This is because I wanted to compare the effectiveness of the radial basis function 'RBF' kernel against that of the linear kernel. The RBF kernel is the default, and is the one used in the Iris project. SVC(kernel='linear') is equivalent to LinearSVC, so it simplifies the code to only import and use SVC, then specify the desired kernel in the parameters.
 
 ##### Step six
 'Evaluation of model on Validation set'\
@@ -217,8 +217,105 @@ Additionally, since a satisfactorily high level of accuracy has shown to be achi
 ##### Step eight
 'Prediction: make actual predictions on actual data and test it's real world performance.'\
 'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'\
-This writeup is my presentation of my work and what has been achieved. It has been proven to be a positive progression from the Iris analysis, showing that my methodology is effective for getting projects _done_.
+This writeup is my presentation of my work and what has been achieved. It has been proven to be a positive progression from the Iris project, showing that my methodology is effective for getting projects _done_.
 
 ##### Step nine
 'Deployment to a production environment.'\
 I do not need to deploy the trained models from this to any production environment. Pushing this writeup to github could be considered to be deployment to production, if you wanted to stretch definitions somewhat.
+
+
+### Digits
+##### Step one
+'Define the problem/understand the business'\
+In this case, the business problem is the correct identification of which handwritten, numerical digit the system has been provided with a 64 (8x8) pixel image of.\
+This is the first image recognition system I have worked on outside the Coursera Machine Learning course, which I used for theory revision and as an introduction to practice, last year. This is one of the most exciting of the 6 datasets I have chosen to work with for the first phase of my portfolio-proper.
+
+##### Step two
+'Locate and acquire relevant datasets'\
+This dataset is available via the SciKit-Learn package `sklearn.datasets`. 
+
+##### Step three
+'Perform an EDA of the datasets - including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'
+I have no internet in the location in which I am currently working, so I have only what is included with the dataset in sklearns packages to go on.\
+Reading the `.DESCR` of this dataset, I have learned that there are 5620 data samples in this dataset, where each has 64 attributes. Each attribute is a pixel in an 8-by-8 pixel greyscale image, where each pixel has an intensity in the range 0-16.\
+These 8x8 pixel images are of handwritten numerical digits, from 0-9. Each data sample is the reduction of a 32x32 pixel image, where each nonoverlapping 4x4 square of pixels was reduced to one, which has the intensity that is the average of the 4 it is replacing. This was done to reduce dimensionality and reduce the effects of small distortions.\
+The data was gathered from 43 people - the data from 30 form the training set, and data from the remaining 13 forms the test set. This means that it will be the first of the 6 datasets to have separate sources for the training and test data.
+
+Looking at the data itself, something very different becomes apparent. There are only 1797 data samples, each with 64 features. There are also 1797 target labels. This is in contrast to the datasets own `.DESCR` description. How interesting. I shall have to be wary of inconsistent descriptions of datasets from now on.
+
+###### EDA
+I am unable to access Wikipedia, or any other external source of information, on this dataset at this time.\
+There are 1797 data samples, each with 64 features that vary between 0 and 16 (inclusive). The total number of training data points is 115008, and there are 1797 target labels, which vary from 0 to 9. This brings the total number of data to 116805.
+
+In this case, the majority of the data created by the statistical summary function is of no use. Additionally, the table is far too large to be of any manual use.\
+Of use, is that skewness between different features (in this case, a feature is a pixel from the same location in different images), varies by as much as 3 orders of magnitude, kurtosis by up to 4. This suggest that mean normalisation is a good idea. 
+
+
+###### Graphs
+While I would normally (is the trend of normal established after only 2 previous data points?) create graphs to represent features of the dataset that are relevant to choices I have yet to make, in this case I do not believe that any are necessary, or of any use.\
+Additionally, since I am not connected to the internet, I am unable to look up how to render the images themselves so that you could more intuitively understand what I am using as input data. 
+
+
+##### Step four
+The fourth step is to 'consider what sorts of models would be appropriate, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'\
+Due to having all numerical, categorically labelled data, from which I want to be able to predict which distinct digit has been written, this is a supervised classification problem.\
+As for appropriate models, I am going to start with the ever-reliable logistic regression. This I will run with 1st, 2nd, and 3rd degree generated polynomial training data.\
+Since it has been close in its performance so far, and from a practical standpoint so easy to implement alongside logistic regression, I will also be using SVMs. Due to the exciting nature of this as an image recognition task, I will be using more different types of kernels, including linear, which I do not expect to perform best, RBF, which I do not feel confident predicting the effectiveness of, and Sigmoid, which as a matter of cognitive bias (due to my familiarity with it, rather than its suitability), I predict will perform best of the SVM kernels.\
+Additionally, and since I used them on this dataset in the Coursera Machine Learning course, and because they are so famous for being better at this sort of thing, I will also be using the ever so exciting _Artificial Neural Network_. Imported though - I can't be bothered to write them from scratch again. Of the available activation functions, I will try out relu, because it is default, and logistic, again because of my familiarity with it (it is what I have hand coded before now). \
+For the neural network, I will be also be inputting 1st, 2nd, and 3rd degree polynomial training data. I will be creating 1, 8, and 64 layer networks (I would create all sizes in between as well but this laptop is only so powerful).
+
+
+While undertaking this step, I noticed that I had made an error of rigorousness in the breast cancer project, and the iris project as well. Upon creating standardised versions of my training and test data, I then utterly failed to use them. I will avoid making this mistake here. I will also go back and fix that mistake after I have finished this project. 
+
+##### Step five
+'Design, create, and/or train the model'
+###### Logistic Regression
+As planned, I created 3 logistic regression models. All 3 were the same apart from which dataset they took in.\
+
+###### Support Vector Machines
+As planned, I created 9 support vector machine classifiers.\
+3 used linear kernels, 3 used RBF kernels, and 3 used sigmoid kernels. For each kernel type, one classifier was trained on each of the pre-processed training datasets.\
+
+###### Artificial Neural Networks
+As planned, I created 6 ANNs, named Multi-layer perceptrons in scikit learn. 3 for the relu activation function and 3 for logistic. 1 of each of those was trained on the 1st, 2nd, and 3rd degree polynomial pre-processed training datasets.\
+Not yet being an expert, I decided to just use the default network architecture for now. The default architecture is 1 layer of 100 neurons. Technically, this is not deep learning, which requires 2 or more hidden layers, but I don't think that sort of thing will be necessary here.\
+
+##### Step six
+'Evaluation of model on Validation set'\
+###### Logistic Regression 
+The accuracy of logistic regression was above 0.95 for 1st order features, and identically above 0.98 for 2nd and 3rd order features.\
+I am impressed and disappointed that logistic regression performed the best. I was hoping to see ANNs be magically better, although I'm not sure that it means so much with these tiny differences on such a small dataset.\
+The F1 scores are the same as the accuracy scores for each degree of engineered training data, which is impressive and pleasing.
+
+###### Support Vector Machines
+The accuracy of SVMs was universally above 0.9, but there was significant variation within the remaining window.\
+Linear kernels actually performed the best, with 1st order features reaching 0.97, and 2nd & 3rd order features reaching 0.989 and 0.985 respectively.\
+RBF kernels had the most variation: 1st got 0.97, 2nd got 0.95, 3rd got 0.92.\
+Sigmoid kernels were similarly dissapointing: 1st got 0.94, 2nd got 0.96, and 3rd got 0.94.\
+The F1 scores for linear kernels are all 0.98, which is as good as the accuracy.\
+The F1 scores for RBF kernels are also almost the same as the accuracy, and just as disappointing.\
+The F1 scores for sigmoid kernels are actually 0.01 or 0.02 better than the accuracy, which doesn't make me like the performance any more than I already don't.
+
+###### Artificial Neural Networks
+These were particularly interesting, but unfortunately no better than linear regression.\
+relu activation: 1st got 0.972, 2nd got 0.969, 3rd got 0.956.\
+Sigmoid activation: 1st got 0.97, 2nd got 0.92, 3rd got 0.98 (0.97963).\
+The F1 scores for relu activation are the same as the accuracy scores.\
+The F1 scores for logistic activation are, again, the same as the accuracy scores, or close enough, which I count as a good thing.
+
+
+##### Step seven
+'Hyperparameter turning (improving model performance). Algorithm tuning, ensemble methods.'\
+After twice now saying that I won't do any hyperparameter tuning because the models I've used haven't had any changed from their defaults, I've decided instead that I will not do anything for step 7 until after these 6 initial projects are complete. The purpose of these first 6 is to get 6 small scale projects complete, and done with, so that I have experience in completing projects, regardless of how artificial and small that experience is.
+
+##### Step eight
+'Prediction: make actual predictions on actual data and test it's real world performance.'\
+Since this is only for training, and I have used the entire dataset, this step seems unnecessary and unfeasible.\
+'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'\
+This writeup is my presentation of my work and what I have achieved. This project in particular has been exciting because it dealt with image data (regardless of how small and boring it is, and how we aren't even getting to see them).\
+It has also made very clear - to me at least - just how easy it is to implement a wide variety of machine learning algorithms. 3 lines of code; instantiate, fit, predict. That's all it takes. And once you've prepared the data beforehand, coding multiple models is more copy and paste than complex design. This makes plain the power of this field - you can repeatedly try all the models you want, and the only cost is waiting for the computer to finish it's computations before you adjust the model and run it again, and again, and again, until you get what you want. In fact, given that it's a computer we've got here, _and a general purpose programming language no less_, I could probably have the computer automatically try multiple models with multiple hyperparameter configurations, on multiple differently preprocessed training datasets, and have it just tell me which was best. You know what I'm sticking that on the todo list.\
+Incidentally, I was wrong in my prediction about sigmoid SVMs being the best, because linear activation functions on polynomially engineered training data was far superior. I speculate that this is due to the greater amount of relation between different data points that is made available to the model and its learning algorithm in the multiplication of all the different pixels, as oppose to just if they were a particular shade of grey. This also leads me to be surprised by the ANNs not doing better. 
+
+##### Step nine
+'Deployment to a production environment.'\
+As with the first part of step eight, I deem this step unnecessary, due to this being a training project with no useful real world application that I can put it to at this time.
