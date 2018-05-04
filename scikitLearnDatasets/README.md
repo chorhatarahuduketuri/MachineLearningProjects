@@ -319,3 +319,21 @@ Incidentally, I was wrong in my prediction about sigmoid SVMs being the best, be
 ##### Step nine
 'Deployment to a production environment.'\
 As with the first part of step eight, I deem this step unnecessary, due to this being a training project with no useful real world application that I can put it to at this time.
+
+### Wine
+We begin again.
+##### Step one
+'Define the problem/understand the business'.\
+The problem here is to identify different types of wine, given some measurements from a chemical analysis of the liquid. It is a supervised classification problem.\
+##### Step two
+The second step is to 'locate and acquire relevant datasets'.\
+The dataset is available from the SciKit Learn code library, via a code import.\
+##### Step three
+The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhpas feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.\
+
+From the `.DESCR` of the dataset, I have learned that in the 'Wine Data Database', there are 178 data samples, with 50 examples of each class. Each has 13 numeric features and a target class, of which there are 3; 0,1,2. The features are all chemical measurements such as alcohol content, magnesium content, and colo(u)r intensity. One is called 'flavanoids', which I used to think was a made up word from 80's movies with mad scientists or something.\
+Some summary statistical information about each feature is provided (min, max, mean, SD), which shows that they're all mostly within a couple of orders of magnitude of each other. It is stated that there are no missing values. The exact numbers of each class are then provided; class 0: 59; class 1: 71; class 2: 48.\
+All 3 wines in this data were grown in the same region of Italy by 3 different cultivators.\
+I will not attempt any meaningful understanding of the particulars of these features, in order to better engineer them, as I lack a chemistry BSc, or any real understanding of wine types.
+
+###### EDA
