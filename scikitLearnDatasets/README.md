@@ -38,7 +38,7 @@ From that, I've learnt that this multivariate dataset has three classes in it, w
 Now, I'm going to load it into memory and take a look at the data itself. 
 The data is in the order of Sepal Length, Sepal Width, Petal Length and Petal Width along four columns, ordered with the first 50 being class zero (Setosa), the second fifty being class one (Versicolour), and the last 50 being class two (Virginica).
 
-Using the `sklearn.stats` package, I ascertained the following:
+Using the `scipy.stats` package, I ascertained the following:
 
 Statistical Attribute | Sepal length (cm) | Sepal width (cm) | Petal length (cm) | Petal width (cm)
  --- | --- | --- | --- | --- 
