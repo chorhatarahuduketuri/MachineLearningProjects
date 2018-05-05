@@ -337,3 +337,35 @@ All 3 wines in this data were grown in the same region of Italy by 3 different c
 I will not attempt any meaningful understanding of the particulars of these features, in order to better engineer them, as I lack a chemistry BSc, or any real understanding of wine types.
 
 ###### EDA
+
+Firstly, a look at the features of the training data: 
+- alcohol
+- malic_acid
+- ash
+- alcalinity_of_ash
+- magnesium
+- total_phenols
+- flavanoids
+- nonflavanoid_phenols
+- proanthocyanins
+- color_intensity
+- hue
+- od280/od315_of_diluted_wines
+- proline
+
+I have no concrete idea what most of these are, with the obvious exception of alcohol (I assume it's content by volume). I also assume that color_intensity and hue are related to the colour and visible appearance of the wine. I also assume that the rest of the measurements concern the presence of some substance by volume or by parts per million (or other number).\
+Fortunately for me, there are no null values, and all of these features are provided in numerical form, so it will be easy to provide them to a machine learning model in a form it will work well with.
+
+A look at the statistics of the data:
+
+| Statistical Attribute | alcohol | malic_acid | ash | alcalinity_of_ash | magnesium | total_phenols | flavanoids | nonflavanoid_phenols | proanthocyanins | color_intensity | hue | od280/od315_of_diluted_wines | proline |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| min | 1.10300000e+01 | 7.40000000e-01 | 1.36000000e+00 | 1.06000000e+01 | 7.00000000e+01 | 9.80000000e-01 | 3.40000000e-01 | 1.30000000e-01 | 4.10000000e-01 | 1.28000000e+00 | 4.80000000e-01 | 1.27000000e+00 | 2.78000000e+02 |
+| max | 1.48300000e+01 | 5.80000000e+00 | 3.23000000e+00 | 3.00000000e+01 | 1.62000000e+02 | 3.88000000e+00 | 5.08000000e+00 | 6.60000000e-01 | 3.58000000e+00 | 1.30000000e+01 | 1.71000000e+00 | 4.00000000e+00 | 1.68000000e+03 |
+| mean | 1.30006180e+01 | 2.33634831e+00 | 2.36651685e+00 | 1.94949438e+01 | 9.97415730e+01 | 2.29511236e+00 | 2.02926966e+00 | 3.61853933e-01 | 1.59089888e+00 | 5.05808988e+00 | 9.57449438e-01 | 2.61168539e+00 | 7.46893258e+02 |
+| variance | 6.59062328e-01 | 1.24801540e+00 | 7.52646353e-02 | 1.11526862e+01 | 2.03989335e+02 | 3.91689535e-01 | 9.97718673e-01 | 1.54886339e-02 | 3.27594668e-01 | 5.37444938e+00 | 5.22449607e-02 | 5.04086409e-01 | 9.91667174e+04 |
+| skewness | -0.05104747 | 1.0308695  | -0.17520678 | 0.21124733 | 1.08891489 | 0.08590677 | 0.02512948 | 0.44634901 | 0.51276903 | 0.86124805 | 0.02091312 | -0.30468993 | 0.76133617 |
+| kurtosis | -0.8622601  | 0.25734829 | 1.07857613 | 0.44082314 | 2.01280601 | -0.8458573  | -0.88936501 | -0.65295221 | 0.50567101 | 0.33736976 | -0.3680254  | -1.08967533 | -0.27499971 |
+
+Looking at the min/max differences, I see that the greatest differences are only 4 orders of magnitude, and that nowhere are the skewness or kurtosis extreme. In only 5 of 26 instances do either have magnitudes >=1. The interesting example here is magnesium, which is the only feature to have both its skewness and kurtosis measurements magnitudes >=1.\
+Lets see what that looks like: 
