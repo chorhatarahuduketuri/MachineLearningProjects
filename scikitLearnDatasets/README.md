@@ -374,3 +374,28 @@ Lets see what that looks like:
 Graph 1: Magnesium histogram\
 ![Magnesium Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/wine/magnesium.png "Magnesium Histogram")
 You can see from this graph that the data for magnesium in the wines is negatively skewed, in that the mean is lower than the median. The relatively high kurtosis score compared to the rest of the data is shown in how much of the data appears to lie further away from the centre of the bell curve (if you imagine one drawn on). Neither of these is a problem that mean normalisation can't help with. 
+
+From looking at the data, and based on my experience so far (in the last three projects, at least), I have determined that I don't really need to do much else to prepare this data for whatever generic ML models I decide to use.\
+So, onto the cool part. 
+
+##### Step four
+The fourth step is to 'consider what sorts of models would be appropriate, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'\
+As previously determined, this is a supervised multi-class classification problem, with non-null numerical feature data. More logistic regression and SVMs are on the table.\
+As for feature engineering, I'll make up 2nd order polynomials, but not 3rd order, as I think they're basically overkill in this case.\
+Of course, all this can be modified as needed based on the accuracy of the models that the machine learns. 
+
+##### Step five
+'Design, create, and/or train the model'
+###### Logistic Regression
+For the logistic regression models, I created two that had maximum iterations set to 500 - an increase from the default of 100. I also set the solver to L-BFGS, partly because I've used it before and partly because the documentation recommends it for multi-class problems.\
+Both logistic regression models are the same, one is for the normal dataset, one is for the polynomial dataset. 
+
+###### Support Vector Machines
+I created two SVMs, one for each of the datasets I'll be using (original and 2nd order polynomial). Both have default parameters set. The default solver is RBF and the default iteration limit is unlimited. 
+
+##### Step six
+'Evaluation of model on Validation set'\
+###### Logistic Regression 
+
+
+###### Support Vector Machines
