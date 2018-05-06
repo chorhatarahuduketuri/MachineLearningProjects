@@ -369,3 +369,8 @@ A look at the statistics of the data:
 
 Looking at the min/max differences, I see that the greatest differences are only 4 orders of magnitude, and that nowhere are the skewness or kurtosis extreme. In only 5 of 26 instances do either have magnitudes >=1. The interesting example here is magnesium, which is the only feature to have both its skewness and kurtosis measurements magnitudes >=1.\
 Lets see what that looks like: 
+
+###### Magnesium graph
+Graph 1: Magnesium histogram\
+![Magnesium Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/wine/magnesium.png "Magnesium Histogram")
+You can see from this graph that the data for magnesium in the wines is negatively skewed, in that the mean is lower than the median. The relatively high kurtosis score compared to the rest of the data is shown in how much of the data appears to lie further away from the centre of the bell curve (if you imagine one drawn on). Neither of these is a problem that mean normalisation can't help with. 
