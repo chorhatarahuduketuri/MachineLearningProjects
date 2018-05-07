@@ -394,8 +394,28 @@ Both logistic regression models are the same, one is for the normal dataset, one
 I created two SVMs, one for each of the datasets I'll be using (original and 2nd order polynomial). Both have default parameters set. The default solver is RBF and the default iteration limit is unlimited. 
 
 ##### Step six
-'Evaluation of model on Validation set'\
+'Evaluation of model on Validation set'
 ###### Logistic Regression 
-
+The logistic regression models repeatedly perform very well. \
+The accuracy scores are always above 0.95, usually higher, sometimes even 1.0, which seems like the kind of result you'd only get on a small dataset. \
+F1 scores are likewise excellent. \
+There is no noticeable difference between the 1st and 2nd order training data input. 
 
 ###### Support Vector Machines
+The SVM model also repeatedly perform well, though with greater variation. \
+The accuracy scores for 1st order training data are consistently 0.95-1.0. For 2nd order training data they vary 0.88-1.0, and never higher than for 1st order training data alone. \
+The F1 scores again follow the accuracy scores for each set of training data. 
+
+##### Step seven
+'Hyperparameter turning (improving model performance). Algorithm tuning, ensemble methods.'\
+As per usual, especially when using default model configurations, I will not be engaging in hyperparameter tuning. 
+
+##### Step eight
+'Prediction: make actual predictions on actual data and test it's real world performance.'\
+Since this is only for training, and I have used the entire dataset, this step seems unnecessary and unfeasible. \
+'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'\
+This writeup is my presentation of my work and what I have achieved. \ 
+
+##### Step nine
+'Deployment to a production environment.'\
+As with the first part of step eight, I deem this step unnecessary, due to this being a training project with no useful real world application that I can put it to at this time.

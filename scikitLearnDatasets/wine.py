@@ -73,11 +73,33 @@ y_svc_default_pred_1 = svc_default_1.predict(standardised_X_test)
 y_svc_default_pred_2 = svc_default_2.predict(X_test_poly_2)
 
 # Step 6 - model evaluation
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 # Logistic Regression
-accuracy_score(y_test, y_lr_pred_1)
-accuracy_score(y_test, y_lr_pred_2)
+print('Logistic Regression original training data accuracy: ')
+print(accuracy_score(y_test, y_lr_pred_1))
+print('Logistic Regression 2nd order polynomial training data accuracy: ')
+print(accuracy_score(y_test, y_lr_pred_2))
+
+print('Logistic Regression original training data classification report: ')
+print(classification_report(y_test, y_svc_default_pred_1))
+print('Logistic Regression 2nd order polynomial training data classification report: ')
+print(classification_report(y_test, y_svc_default_pred_2))
 
 # SVM
-accuracy_score(y_test, y_svc_default_pred_1)
-accuracy_score(y_test, y_svc_default_pred_2)
+print('Support Vector Machine original training data accuracy: ')
+print(accuracy_score(y_test, y_svc_default_pred_1))
+print('Support Vector Machine 2nd order polynomial training data accuracy: ')
+print(accuracy_score(y_test, y_svc_default_pred_2))
+
+print('Support Vector Machine original training data classification report: ')
+print(classification_report(y_test, y_svc_default_pred_1))
+print('Support Vector Machine 2nd order polynomial training data classification report: ')
+print(classification_report(y_test, y_svc_default_pred_2))
+
+# Save the models somewhere
+from sklearn.externals import joblib
+
+joblib.dump(lr1, 'gitIgnoreDir/wine/lr1.pkl')
+joblib.dump(lr2, 'gitIgnoreDir/wine/lr2.pkl')
+joblib.dump(svc_default_1, 'gitIgnoreDir/wine/svc_default_1.pkl')
+joblib.dump(svc_default_2, 'gitIgnoreDir/wine/svc_default_2.pkl')
