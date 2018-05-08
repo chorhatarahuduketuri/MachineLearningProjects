@@ -419,3 +419,55 @@ This writeup is my presentation of my work and what I have achieved. \
 ##### Step nine
 'Deployment to a production environment.'\
 As with the first part of step eight, I deem this step unnecessary, due to this being a training project with no useful real world application that I can put it to at this time.
+
+### Boston House Prices
+Finally, _linear_ regression. 
+##### Step one
+'Define the problem/understand the business'.\
+The problem here is, given 13 (numerical **and** categorical) features, to predict the median house price of owner-occupied houses to the closest $1000. It is a supervised regression problem.
+
+##### Step two
+The second step is to 'locate and acquire relevant datasets'.\
+The dataset is available from the SciKit Learn code library, via a code import.
+
+##### Step three
+The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.\
+
+From the `.DESCR` of the dataset, I have learned that there are 506 data samples, each with 14 features. \
+The 14th feature, which is the median value of owner-occupied houses (in $1000 increments), is used as the target variable, and the import from scikit learn presents it as such, giving the other 13 features as the training dataset, and the median owner-occupied house value as the target. \
+I have also learnt that the training data isn't all numerical this time, huzzah! Something categorical to deal with! Of course, since the categories are provided as integer values, this actually makes no difference between the numerical and categorical features, as to the practical way in which I will handle the data and provide it to the algorithms. Or will it? Does it still require mean normalisation? I will have to check. At the appropriate step - let's not get distracted here. \
+There are no missing attributes. Easy. 
+
+###### EDA
+
+Firstly, a look at the features of the training data as described in the `.DESCR`: 
+- CRIM - per capita crime rate by town
+- ZN - proportion of residential land zoned for lots over 25,000 sq.ft.
+- INDUS - proportion of non-retail business acres per town
+- CHAS - Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)
+- NOX - nitric oxides concentration (parts per 10 million)
+- RM - average number of rooms per dwelling
+- AGE - proportion of owner-occupied units built prior to 1940
+- DIS - weighted distances to five Boston employment centres
+- RAD - index of accessibility to radial highways
+- TAX - full-value property-tax rate per $10,000
+- PTRATIO - pupil-teacher ratio by town
+- B - 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
+- LSTAT - % lower status of the population
+- MEDV - Median value of owner-occupied homes in $1000's
+
+Comments on each feature: 
+- CRIM - Criminal activity is generally something most people don't want to be close to. 
+- ZN - Larger lots would be worth more themselves, and would accommodate larger houses. 
+- INDUS - This indicates a greater variety of employment opportunities (with potentially higher wages) nearby to the house. 
+- CHAS - Either because houses near the river are more aesthetically pleasing to homeowners, or because the river floods and who needs that. 
+- NOX - Air quality is important, not just to how the air tastes and how it feels to breathe, but also for long term health. 
+- RM - More is more, after all. 
+- AGE - Older houses aren't as good as newer houses. 
+- DIS - Makes it easier to get a job. 
+- RAD - Transport access is important, especially when it comes to cars. 
+- TAX - On-going costs are important to consider, and lower on-going costs are sometimes worth higher startup costs (be careful to do the maths on this though). 
+- PTRATIO - Very important for those who have children. 
+- B - Very important for racist people, and people interested in studying the effects racism has on society (in this case, economic). Is it racist to include this? For academic analysis I suppose not. For deciding how much _you're_ going to pay for the house I think it is. 
+- LSTAT - I don't actually know what this means. A google search brings back nothing concrete, but suggest that it's to do with income and socioeconomic status. Basically, LSTAT % is the % of people who have low wages, relative to others. 
+- MEDV - The target variable. 
