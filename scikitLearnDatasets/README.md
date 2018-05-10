@@ -471,3 +471,23 @@ Comments on each feature:
 - B - Very important for racist people, and people interested in studying the effects racism has on society (in this case, economic). Is it racist to include this? For academic analysis I suppose not. For deciding how much _you're_ going to pay for the house I think it is. 
 - LSTAT - I don't actually know what this means. A google search brings back nothing concrete, but suggest that it's to do with income and socioeconomic status. Basically, LSTAT % is the % of people who have low wages, relative to others. 
 - MEDV - The target variable. 
+
+Let's see if there are any particular statistical basics that stick out: 
+
+| Statistical attribute | CRIM | ZN | INDUS | CHAS | NOX | RM | AGE | DIS | RAD | TAX | PTRATIO | B | LSTAT |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| min | 6.32000000e-03 |0.00000000e+00 |4.60000000e-01 |0.00000000e+00 |3.85000000e-01 |3.56100000e+00 |2.90000000e+00 |1.12960000e+00 |1.00000000e+00 |1.87000000e+02 |1.26000000e+01 |3.20000000e-01 |1.73000000e+00 |
+| max | 88.9762 |100.|27.74|1.|0.871|8.78|100.|12.1265 |24.|711.|22.|396.9|37.97 |
+| mean | 3.59376071e+00 |1.13636364e+01 |1.11367787e+01 |6.91699605e-02 |5.54695059e-01 |6.28463439e+00 |6.85749012e+01 |3.79504269e+00 |9.54940711e+00 |4.08237154e+02 |1.84555336e+01 |3.56674032e+02 |1.26530632e+01 |
+| variance | 7.39046710e+01 |5.43936814e+02 |4.70644425e+01 |6.45129730e-02 |1.34276357e-02 |4.93670850e-01 |7.92358399e+02 |4.43401514e+00 |7.58163660e+01 |2.84047595e+04 |4.68698912e+00 |8.33475226e+03 |5.09947595e+01 |
+| skewness | 5.22203907 |2.21906306 |0.29414628 |3.39579929 |0.72714416 |0.40241467 |-0.59718559 |1.00877876 |1.00183349 |0.66796827 |-0.79994453 |-2.88179835 |0.90377074 |
+| kurtosis | 36.88811011 |3.97994877 |-1.23321847 |9.53145284 |-0.07586422 |1.86102697 |-0.97001393 |0.47129857 |-0.8705205|-1.14298488 |-0.29411638 |7.14376929 |0.47654476 |
+
+The min/max of all the features have a total range of 5 orders of magnitude, which is very large. Mean normalisation will be very useful here.\
+The skewness and kurtosis is generally fairly moderate, below 10 in magnitude in most cases, except for the glaring kurtoisi of 36.89 for the CRIM feature. Lets take a look to see what that looks like: 
+
+What an unusual looking graph (for what I've done so far): 
+###### Magnesium graph
+Graph 1: CRIM histogram\
+![CRIM Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/boston/CRIM.png "CRIM Histogram")
+ 
