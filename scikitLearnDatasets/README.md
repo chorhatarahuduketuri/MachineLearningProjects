@@ -489,5 +489,7 @@ The skewness and kurtosis is generally fairly moderate, below 10 in magnitude in
 What an unusual looking graph (for what I've done so far): 
 ###### Magnesium graph
 Graph 1: CRIM histogram\
-![CRIM Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/boston/CRIM.png "CRIM Histogram")
- 
+![CRIM Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/bostonImages/CRIM.png "CRIM Histogram")
+
+Graph 2: NOX histogram\
+![NOX Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/bostonImages/NOX.png "NOX Histogram")
