@@ -561,3 +561,93 @@ This writeup is my presentation of my work and what I have achieved. \
 ##### Step nine
 'Deployment to a production environment.'\
 As with the first part of step eight, I deem this step unnecessary, due to this being a training project with no useful real world application that I can put it to at this time.
+
+
+### Diabetes
+##### Step one
+'Define the problem/understand the business'.\
+Given 10 numerical features, predict disease progression one year after baseline. It is a supervised regression problem.
+
+##### Step two
+The second step is to 'locate and acquire relevant datasets'.\
+The dataset is available from the SciKit Learn code library, via a code import.
+
+##### Step three
+The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.\
+
+From the `.DESCR` of the dataset, I have learned that there are 442 data samples, each with 10 features. This is accurate to what is present in the data. \
+I note that the `.DESCR` is particularly bare in this case - it lacks any description of what 'disease progression' means, what the 'S1'-'S6' features are, or even if it is about type 1 or type 2 diabetes. \
+Fortunately, a little more detail is provided at the end of a link provided in the `.DESCR`: "Ten baseline variables, age, sex, body mass index, average blood pressure, and six blood serum measurements were obtained for each of n = 442 diabetes patients, as well as the response of interest, a quantitative measure of disease progression one year after baseline." \
+That makes sense, apart from 'response of interest', which googling tells me is a generic term for the response to some interesting test - which means exactly nothing to me as a medical layman. \
+There are no missing attributes or data. 
+
+###### EDA
+To begin with, the usual statistical summary will be compiled: 
+
+| Statistical Attribute | age | sex | bmi | bp | s1 | s2 | s3 | s4 | s5 | s6 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| min | -0.10722563 | -0.04464164 | -0.0902753 | -0.1123996 | -0.12678067 | -0.11561307 | -0.10230705 | -0.0763945 | -0.12609739 | -0.13776723 |
+| max | 0.11072668 | 0.05068012 | 0.17055523 | 0.13204422 | 0.15391371 | 0.19878799 | 0.18117906 | 0.18523444 | 0.13359898 | 0.13561183 |
+| mean | -3.63428493e-16 | 1.30834257e-16 | -8.04534920e-16 | 1.28165452e-16 | -8.83531559e-17 | 1.32702421e-16 | -4.57464634e-16 | 3.77730150e-16 | -3.83085422e-16 | -3.41288202e-16 |
+| variance | 0.00226757 | 0.00226757 | 0.00226757 | 0.00226757 | 0.00226757 | 0.00226757 | 0.00226757 | 0.00226757 | 0.00226757 | 0.00226757 |
+| skewness | -0.23059556 | 0.12695182 | 0.59611666 | 0.2896765 | 0.37682382 | 0.43510876 | 0.79654015 | 0.73287568 | 0.29078271 | 0.20721035 |
+| kurtosis | -0.67719869 | -1.98388324 | 0.08047813 | -0.54031588 | 0.21677706 | 0.58105569 | 0.95689553 | 0.42584638 | -0.14639468 | 0.22070114 |
+
+All the data appears to exist within over 2 orders of magnitude. The means as well. And the absolute magnitudes of some of them are minuscule. This will definitely require mean normalisation, to put it on a scale that is practical.\
+As for skewness and kurtosis, they seem mild in all cases.\
+I see no benefit to graphing any of this, as none of it is particularly vexing or interesting.
+
+##### Step four
+The fourth step is to 'consider what sorts of models would be appropriate, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'\
+For this, I will make use of linear regression, SVMs, and ANNs. Due to the relatively smaller number of regression projects compared to classification projects, I will use a greater variety of different models here in order to see what they can do. 
+
+##### Step five
+'Design, create, and/or train the model'
+###### Logistic Regression
+I created two logistic regression models with the default configuration and parameters. \
+I trained one with the original training data, and one with the 2nd order polynomial training data. 
+
+###### Support Vector Machines
+I created two SVM models with the default configuration and parameters. \
+I trained one with the original training data, and one with the 2nd order polynomial training data. 
+
+###### Artificial Neural Networks 
+I created two ANN models with the max_iter=5000 and two hidden layers, with the number of neurons in each layer equal to the number of features in the dataset it was learning from. There were 10 neurons per layer for the first ANN, and 66 per layer for the second.\
+I trained one with the original training data, and one with the 2nd order polynomial training data.
+
+##### Step six
+'Evaluation of model on Validation set'
+
+Since I'm going to be using absolute error, I've decided that it would be useful to have some idea of the target data scale:
+
+| Min | Max | Mean | Variance | Skewness | Kurtosis |
+| --- | --- | --- | --- | --- | --- |
+| 25.0 | 346.0 | 152.13348416289594 | 5943.331347923785 | 0.43906639932477265 | 0.8866436055681386 |
+
+I will also create a table of the results of 100 repetitions of the learning process: 
+
+| Statistical Attribute | LR1 | LR2 | SVM1 | SVM2 | ANN1 | ANN2 | 
+| --- | --- | --- | --- | --- | --- | --- | 
+| min | 38.97470847 | 38.74439027 | 53.61093388 | 57.89121907 | 38.22525076 | 49.89319815 |
+| max | 50.55254208 | 149.67669173 | 70.26200928 | 75.26292449 | 52.38160755 | 77.37662825 |
+| mean | 44.60626905 | 51.63059026 | 59.56855263 | 64.04888396 | 45.37705911 | 64.13728639 |
+| variance | 6.02042862 | 154.8897143  | 8.8043413  | 9.14008796 | 9.35709683 | 24.87369459 |
+
+Leaving out skewness and kurtosis, you can see that the lowest errors are from logistic regression on the original training data, and a neural network, on the original training data. \
+I find it interesting that yet again the best performance is given by the simplest algorithm on the simplest data.\
+Clearly this warrants further investigation. Perhaps further study of the maths is called for. 
+
+##### Step 7
+'Hyperparameter turning (improving model performance). Algorithm tuning, ensemble methods.'\
+As per usual, especially when (mostly) using default model configurations, I will not be engaging in hyperparameter tuning. 
+
+##### Step eight
+'Prediction: make actual predictions on actual data and test it's real world performance.'\
+Since this is only for training, and I have used the entire dataset, this step seems unnecessary and unfeasible. \
+'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'\
+This writeup is my presentation of my work and what I have achieved. \ 
+
+##### Step nine
+'Deployment to a production environment.'\
+As with the first part of step eight, I deem this step unnecessary, due to this being a training project with no useful real world application that I can put it to at this time.
+
