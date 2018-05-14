@@ -27,13 +27,13 @@ Estimators are models that you train, test the accuracy of, and make predictions
 
 ### Iris
 ##### Step one
-There are nine steps (as I have identified so far) in any given machine learning project, the first being to 'define the problem/understand the business'. In this case, the problem is to identify different species of flowers based on measurements of their physical attributes. This problem is one of classification.\
+There are nine steps (as I have identified so far) in any given machine learning project, the first being to 'define the problem/understand the business'. In this case, the problem is to identify different species of flowers based on measurements of their physical attributes. This problem is one of classification.
 ##### Step two
-The second step is to 'locate and acquire relevant datasets'. This is already done, the dataset is the famous Iris dataset.\
+The second step is to 'locate and acquire relevant datasets'. This is already done, the dataset is the famous Iris dataset.
 ##### Step three
 The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhpas feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_. To that end, I will look at the description of the dataset that comes with it, load it into memory and look at what form the data comes in, and I will determine some statistical information about it, along with create some visualisations if I think they show something of interest.
 ###### EDA
-Firstly, since this dataset is so famous, it has a wikipedia page which I'll read: https://en.wikipedia.org/wiki/Iris_flower_data_set\
+Firstly, since this dataset is so famous, it has a wikipedia page which I'll read: https://en.wikipedia.org/wiki/Iris_flower_data_set \
 From that, I've learnt that this multivariate dataset has three classes in it, with 50 samples each, for a total of 150 data points. The samples were mostly collected in the same place, at the same time, by the same person, using the same methods, which to me seems like a good way to minimise bias from sensors. There were four variables collected (besides the class/species), which were the length and width of the petals and and sepals of each flower. Other interesting/useful to know things are that it is not linearly separable, and that basic cluster analysis has poor performance on it, due to there only being two linearly separable clusters between the three classes. On the upside, this means it's a good test case for SVMs (Support Vector Machines).\
 Now, I'm going to load it into memory and take a look at the data itself. 
 The data is in the order of Sepal Length, Sepal Width, Petal Length and Petal Width along four columns, ordered with the first 50 being class zero (Setosa), the second fifty being class one (Versicolour), and the last 50 being class two (Virginica).
@@ -56,16 +56,16 @@ Since these two things basically describe how normal a distribution of data poin
 
 In an effort to better understand the data, I will graph all three classes of each of the four features on histograms, to better compare the data relative to each other and spot any obvious features of the dataset.\
 Graph 1: Sepal length\    
-![Sepal Length Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/sepalLength.png "Sepal Length Histogram")
+![Sepal Length Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/sepalLength.png "Sepal Length Histogram")\
 The sepal lengths graph shows that all three species of flower have sepals of similar lengths, and I can see why a classification algorithm might give so-so results based on this feature alone. \
 Graph 2: Sepal width\
-![Sepal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/sepalWidth.png "Sepal Width Histogram")
+![Sepal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/sepalWidth.png "Sepal Width Histogram")\
 The sepal widths graph shows that Versicolor and Virginica are very similar, and shows why a clustering algorithm might not be able to easily separate them based on this feature. \
 Graph 3: Petal length\
-![Petal Length Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/petalLength.png "Petal Length Histogram")
+![Petal Length Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/petalLength.png "Petal Length Histogram")\
 The petal length graph is much easier to tell the three species apart on, especially the Setosa which stands distinctly apart from the other two, which overlap slightly. \
 Graph 4: Petal width\
-![Petal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/petalWidth.png "Petal Width Histogram")
+![Petal Width Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/irisImages/petalWidth.png "Petal Width Histogram")\
 The petal width graph is much like the petal length histogram, in that the Versicolor and Viriginica species overlap slightly, but the Setosa is cleanly separated to the lower end of the range.
 
 ##### Step four
@@ -153,30 +153,30 @@ The first thing I've done is create straight forward histograms of each feature 
 
 ###### Mean graphs
 Graph 1: Mean area\
-![Mean Area](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_area.png "Mean Area Histogram")
+![Mean Area](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_area.png "Mean Area Histogram")\
 As you can see from this histogram of the mean area of the nuclei, the data is somewhat negatively skewed. I think it is a better way to put it to say, that the _mean_ of the data is negatively skewed, in that the mean is lower than the median.\
 Graph 2: Mean concave points\
-![Mean Concave Points](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_concave_points.png "Mean Concave Points Histogram")
+![Mean Concave Points](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_concave_points.png "Mean Concave Points Histogram")\
 The mean concave points are even more negatively skewed than the mean area.\
 Graph 3: Mean smoothness\
-![Mean Smoothness](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_smoothness.png "Mean Smoothness Histogram")
+![Mean Smoothness](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_mean_smoothness.png "Mean Smoothness Histogram")\
 The mean smoothness has much less skew, and so looks more similar to a normal distribution. It has a very similar kurtosis score to the mean area, which indicates that as similar proportions of the data points lie in the centre of the bell curve, as lie in the tails, in both distributions. \
 Remember that a higher kurtosis score indicates that a greater proportion of the data is in the centre of the bell curve, and a lower score indicates the opposite, such that the height of the bell would be lower, and the tails would be longer. 
 
 ###### Error graphs
 Graph 4: Area error\
-![Area Error Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_area_error.png "Area Error Histogram")
+![Area Error Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_area_error.png "Area Error Histogram")\
 As you can see from the graph, the area error not only has a strongly negative skew, but also a very high kurtosis score (48.77).\
 Graph 5: Concave points error\
-![Concave Points Error Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_concave_points_error.png "Concave Points Error Histogram")
+![Concave Points Error Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_concave_points_error.png "Concave Points Error Histogram")\
 The concave points error data, while having some of the lowest scores of the error features, still has significant skew and kurtosis scores. 
 
 ###### Worst graphs
 Graph 6: Worst area\
-![Worst Area Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_worst_area.png "Worst Area Histogram")
+![Worst Area Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_worst_area.png "Worst Area Histogram")\
 The worst area data shows significant skew and high kurtosis (though still much lower than area error), and learning algorithms could benefit from this data being mean normalised before being fed into them. \
 Graph 7: Worst smoothness\
-![Worst Smoothness Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_worst_smoothness.png "Worst Smoothness Histogram")
+![Worst Smoothness Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/breastCancerImages/hist_worst_smoothness.png "Worst Smoothness Histogram")\
 Having some of the lowest scores of the worst data features, the smoothness has both low skew and low kurtosis. 
 
 I have considered further graphical exploration or other analysis of the data prior to model selection, and I will not do any more. This is for two reasons. The first is that I wish to keep these analyses simple and short, so that I gain experience in starting ML projects, carrying them out, and _finishing_ them. The second is that I do not believe any further analysis will cause me to change anything I think I am likely to do going forward during this project. 
@@ -324,12 +324,12 @@ As with the first part of step eight, I deem this step unnecessary, due to this 
 We begin again.
 ##### Step one
 'Define the problem/understand the business'.\
-The problem here is to identify different types of wine, given some measurements from a chemical analysis of the liquid. It is a supervised classification problem.\
+The problem here is to identify different types of wine, given some measurements from a chemical analysis of the liquid. It is a supervised classification problem.
 ##### Step two
 The second step is to 'locate and acquire relevant datasets'.\
-The dataset is available from the SciKit Learn code library, via a code import.\
+The dataset is available from the SciKit Learn code library, via a code import.
 ##### Step three
-The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhpas feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.\
+The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhpas feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.
 
 From the `.DESCR` of the dataset, I have learned that in the 'Wine Data Database', there are 178 data samples, with 50 examples of each class. Each has 13 numeric features and a target class, of which there are 3; 0,1,2. The features are all chemical measurements such as alcohol content, magnesium content, and colo(u)r intensity. One is called 'flavanoids', which I used to think was a made up word from 80's movies with mad scientists or something.\
 Some summary statistical information about each feature is provided (min, max, mean, SD), which shows that they're all mostly within a couple of orders of magnitude of each other. It is stated that there are no missing values. The exact numbers of each class are then provided; class 0: 59; class 1: 71; class 2: 48.\
@@ -372,7 +372,7 @@ Lets see what that looks like:
 
 ###### Magnesium graph
 Graph 1: Magnesium histogram\
-![Magnesium Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/wine/magnesium.png "Magnesium Histogram")
+![Magnesium Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/wine/magnesium.png "Magnesium Histogram")\
 You can see from this graph that the data for magnesium in the wines is negatively skewed, in that the mean is lower than the median. The relatively high kurtosis score compared to the rest of the data is shown in how much of the data appears to lie further away from the centre of the bell curve (if you imagine one drawn on). Neither of these is a problem that mean normalisation can't help with. 
 
 From looking at the data, and based on my experience so far (in the last three projects, at least), I have determined that I don't really need to do much else to prepare this data for whatever generic ML models I decide to use.\
@@ -414,7 +414,7 @@ As per usual, especially when using default model configurations, I will not be 
 'Prediction: make actual predictions on actual data and test it's real world performance.'\
 Since this is only for training, and I have used the entire dataset, this step seems unnecessary and unfeasible. \
 'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'\
-This writeup is my presentation of my work and what I have achieved. \ 
+This writeup is my presentation of my work and what I have achieved. 
 
 ##### Step nine
 'Deployment to a production environment.'\
@@ -431,7 +431,7 @@ The second step is to 'locate and acquire relevant datasets'.\
 The dataset is available from the SciKit Learn code library, via a code import.
 
 ##### Step three
-The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.\
+The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.
 
 From the `.DESCR` of the dataset, I have learned that there are 506 data samples, each with 14 features. \
 The 14th feature, which is the median value of owner-occupied houses (in $1000 increments), is used as the target variable, and the import from scikit learn presents it as such, giving the other 13 features as the training dataset, and the median owner-occupied house value as the target. \
@@ -489,10 +489,10 @@ The skewness and kurtosis is generally fairly moderate, below 10 in magnitude in
 What an unusual looking graph (for what I've done so far): 
 ###### Magnesium graph
 Graph 1: CRIM histogram\
-![CRIM Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/bostonImages/CRIM.png "CRIM Histogram")
-This graph displays the skewness and kurtosis very well. The skewness is not as extreme as the kurtosis, which is shown in it's extreme with such a long, low tail off to the right.\ 
+![CRIM Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/bostonImages/CRIM.png "CRIM Histogram")\
+This graph displays the skewness and kurtosis very well. The skewness is not as extreme as the kurtosis, which is shown in it's extreme with such a long, low tail off to the right.\
 Graph 2: NOX histogram\
-![NOX Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/bostonImages/NOX.png "NOX Histogram")
+![NOX Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/scikitLearnDatasets/bostonImages/NOX.png "NOX Histogram")\
 By contrast to Graph 1, Graph 2 is much closer to a normal distribution, but still with a visible concentration of data points to the left of the graph. Notably, it has a data point off to the far right that looks like it could be an outlier. 
 
 Regardless, my approach for this is still going to be mean normalisation, via the use of imported libraries. 
@@ -549,14 +549,14 @@ As you can clearly see, the performance of the ANNs was actually better for once
 
 ##### Step 7 - take 2
 'Hyperparameter turning (improving model performance). Algorithm tuning, ensemble methods.'\
-Technically, I did do this during the implementation of step six take 2, as I extended the max_iter from 500 to 5000 to remove a stopping-before-convergence-problem in the ANNs.\ 
+Technically, I did do this during the implementation of step six take 2, as I extended the max_iter from 500 to 5000 to remove a stopping-before-convergence-problem in the ANNs.\
 I'm not going to do anything else for this step. 
 
 ##### Step eight
 'Prediction: make actual predictions on actual data and test it's real world performance.'\
 Since this is only for training, and I have used the entire dataset, this step seems unnecessary and unfeasible. \
 'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'\
-This writeup is my presentation of my work and what I have achieved. \ 
+This writeup is my presentation of my work and what I have achieved. 
 
 ##### Step nine
 'Deployment to a production environment.'\
@@ -573,7 +573,7 @@ The second step is to 'locate and acquire relevant datasets'.\
 The dataset is available from the SciKit Learn code library, via a code import.
 
 ##### Step three
-The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.\
+The third step is to 'perform an EDA (Exploratory Data Analysis) of the dataset'. I have this further defined as _'including some preliminary cleaning and perhaps feature engineering - to understand it's value and quality. Make sure the dataset is in some form that can be fed into a mathematical, algorithmically trained model'_.
 
 From the `.DESCR` of the dataset, I have learned that there are 442 data samples, each with 10 features. This is accurate to what is present in the data. \
 I note that the `.DESCR` is particularly bare in this case - it lacks any description of what 'disease progression' means, what the 'S1'-'S6' features are, or even if it is about type 1 or type 2 diabetes. \
@@ -645,7 +645,7 @@ As per usual, especially when (mostly) using default model configurations, I wil
 'Prediction: make actual predictions on actual data and test it's real world performance.'\
 Since this is only for training, and I have used the entire dataset, this step seems unnecessary and unfeasible. \
 'Presentation: present to the stakeholder/business the results of the work so far and explain the future worth (or lack thereof).'\
-This writeup is my presentation of my work and what I have achieved. \ 
+This writeup is my presentation of my work and what I have achieved. 
 
 ##### Step nine
 'Deployment to a production environment.'\
