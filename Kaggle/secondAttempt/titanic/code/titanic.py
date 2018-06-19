@@ -51,3 +51,8 @@ ax3.hist(age, 100, histtype='bar', label='Age')
 ax3.legend()
 ax3.set(title='Distribution of Age', ylabel='Number of datapoints', xlabel='Age data')
 fig3.savefig('../gitIgnoreDir/Age_histogram.png')
+
+training_data_0 = titanic_training[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+# training_data_0 =
+training_data_mean = titanic_training[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+age_mean = np.nanmean(training_data_mean, axis=0)[2]
