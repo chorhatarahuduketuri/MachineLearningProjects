@@ -20,7 +20,7 @@ To begin with, I will look at the description of the datasets that has been prov
 
 | Variable | Definition | Key |
 | --- | --- | --- |
-| survival | Survival | 0 = No, 1 = Yes
+| survival | Survival | 0 = No, 1 = Yes |
 | pclass | Ticket class | 1 = 1st, 2 = 2nd, 3 = 3rd |
 | sex | Sex |
 | Age | Age in years |
@@ -72,18 +72,29 @@ The test data has all the same features with the exception of Survived, and has 
 
 I think now is a good time to look at each feature and think about what it means and how useful it's going to be.
 
-First up is _PassengerId_, a predicatively useless feature that was added to the dataset to enumerate the data samples. I will remove this prior to training.\
-Second is _Survived_. This is the binary target variable and will be used to inform the model if it's right or wrong during training.\
-Third is _Pclass_, a feature that describes the ticket class that the passenger purchased. According to the data description provided by Kaggle, this can be used to infer socioeconomic class, which makes intuitive sense to me, so I will agree. How this affects survival is something I could speculate on, but probably has to do with access to survival resources (lifejackets, crew assistance, lifeboat boarding priority, etc). 
-Fourth is _Name_. Since names are _independent_ of each other, and do nothing to describe a person, this feature is useless and I will not be using it for training.\
-Fifth is _Sex_. Given the varied and extensive inter-sex social dynamics that are pervasive to all humans, this is likely to be a good predictive feature, due (in my opinion) to the likelihood of behaviour affecting survivial.\
-Sixth is _Age_. I believe this will be a useful feature, for similar reasons to the _Sex_ feature. The young and old are often favoured in escape survival situations (that is, they are according to my understanding). Conversely, those who are too young or too old (infirm) to get themselves to safety, may be more likely to die.\
-Seventh is _SibSp_. I think this could be very relevant, given that group cooperation is a major force for success in human history, and humans are more likely to cooperation with family members.\
-Eighth is _Parch_. This will likely be relevant for the same reason _SibSp_ is, though may require some combination with age and possibly sex to be fully useful. Having a parent to look after you is an advantage in survival situations, and having a child may give you a better argument for getting onto a lifeboat.\
-Ninth is _Ticket_. This is tell us nothing of any use, given that we already know what class they were travelling in. It is just another arbitrary coding system like _PassengerId_ that has no predictive worth.\
-Tenth is _Fare_. How much they paid for their ticket could be of use, if wealth is a useful indicator. It would add more nuance to the socioeconomic information provided by _Pclass_.\
-Eleventh is _Cabin_. I don't know if this will be of much use. It could be, in that some part of the cabin designation could indicate which part of the ship the passenger was in, and therefore relate to their distance from lifesaving equipment and escape vessels, however, many people may not have been in their cabins at the time, so it could just add noise. I will include it, and allow the models to determine it's usefulness for themselves.\
-Twelfth is _Embarked_. Where they got on the ship shouldn't be relevant, as it's not related to the sinking in any way (everyone embarked beforehand, and I know of no grouping by embarkation whatsoever). I will not use this for training.\
+First up is _PassengerId_, a predicatively useless feature that was added to the dataset to enumerate the data samples. I will remove this prior to training.
+
+Second is _Survived_. This is the binary target variable and will be used to inform the model if it's right or wrong during training.
+
+Third is _Pclass_, a feature that describes the ticket class that the passenger purchased. According to the data description provided by Kaggle, this can be used to infer socioeconomic class, which makes intuitive sense to me, so I will agree. How this affects survival is something I could speculate on, but probably has to do with access to survival resources (lifejackets, crew assistance, lifeboat boarding priority, etc) 
+
+Fourth is _Name_. Since names are _independent_ of each other, and do nothing to describe a person, this feature is useless and I will not be using it for training.
+
+Fifth is _Sex_. Given the varied and extensive inter-sex social dynamics that are pervasive to all humans, this is likely to be a good predictive feature, due (in my opinion) to the likelihood of behaviour affecting survivial.
+
+Sixth is _Age_. I believe this will be a useful feature, for similar reasons to the _Sex_ feature. The young and old are often favoured in escape survival situations (that is, they are according to my understanding). Conversely, those who are too young or too old (infirm) to get themselves to safety, may be more likely to die.
+
+Seventh is _SibSp_. I think this could be very relevant, given that group cooperation is a major force for success in human history, and humans are more likely to cooperation with family members.
+
+Eighth is _Parch_. This will likely be relevant for the same reason _SibSp_ is, though may require some combination with age and possibly sex to be fully useful. Having a parent to look after you is an advantage in survival situations, and having a child may give you a better argument for getting onto a lifeboat.
+
+Ninth is _Ticket_. This is tell us nothing of any use, given that we already know what class they were travelling in. It is just another arbitrary coding system like _PassengerId_ that has no predictive worth.
+
+Tenth is _Fare_. How much they paid for their ticket could be of use, if wealth is a useful indicator. It would add more nuance to the socioeconomic information provided by _Pclass_.
+
+Eleventh is _Cabin_. I don't know if this will be of much use. It could be, in that some part of the cabin designation could indicate which part of the ship the passenger was in, and therefore relate to their distance from lifesaving equipment and escape vessels, however, many people may not have been in their cabins at the time, so it could just add noise. I will include it, and allow the models to determine it's usefulness for themselves.
+
+Twelfth is _Embarked_. Where they got on the ship shouldn't be relevant, as it's not related to the sinking in any way (everyone embarked beforehand, and I know of no grouping by embarkation whatsoever). I will not use this for training.
 
 So, the features I intend to use (for now, who knows what will come later) are: 
 - Survived (as the target)
@@ -149,10 +160,10 @@ The same with this distribution, where the tail is even longer as where the mean
 
 ###### Filling in the blanks 
 I can see that the _Sex_ data needs to be converted into something numerical so that the computer can read it. I can also see that there are a lot of missing data points for _Age_.\
-Making text categorical data into numerical data is easy: there's a function call for that. Dealing with the missing _Age_ data is more difficult. Not how to do something - that's just more code. The difficult part is deciding what to do.\
+Making text categorical data into numerical data is easy: there's a function call for that. Dealing with the missing _Age_ data is more difficult. Not how to do something - that's just more code. The difficult part is deciding what to do.
 
 There are two options here: either set it to 0, or set it to the average (but which average; mean, median, or mode?)\
 Lets look at the _Age_ data first: 
 Graph 2: Age Histogram\
 ![Age Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/Kaggle/secondAttempt/titanic/images/Age_histogram.png "Age Histogram")\
-The lack of outliar data in this graph, it's low skew and kurtosis, combined with it's _mostly_ normal distribution appearance, leads me to think that mean substitution isn't a bad idea, except for the pollution of the dataset that it causes. However, 0 substitution is also valid, because there are no other 0 values in _Age_, which means it isn't polluting. This also allows a model to hypothetically discount the _Age_ feature if it is 0. I won't remove the rows with no _Age_ value because they make up nearly 20% of the dataset. I could always put -1 in? 
+The lack of outlier data in this graph, it's low skew and kurtosis, combined with it's _mostly_ normal distribution appearance, leads me to think that mean substitution isn't a bad idea, except for the pollution of the dataset that it causes. However, 0 substitution is also valid, because there are no other 0 values in _Age_, which means it isn't polluting. This also allows a model to hypothetically discount the _Age_ feature if it is 0. I won't remove the rows with no _Age_ value because they make up nearly 20% of the dataset. I could always put -1 in? 
