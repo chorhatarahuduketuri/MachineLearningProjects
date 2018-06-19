@@ -167,3 +167,5 @@ Lets look at the _Age_ data first:
 Graph 2: Age Histogram\
 ![Age Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/Kaggle/secondAttempt/titanic/images/Age_histogram.png "Age Histogram")\
 The lack of outlier data in this graph, it's low skew and kurtosis, combined with it's _mostly_ normal distribution appearance, leads me to think that mean substitution isn't a bad idea, except for the pollution of the dataset that it causes. However, 0 substitution is also valid, because there are no other 0 values in _Age_, which means it isn't polluting. This also allows a model to hypothetically discount the _Age_ feature if it is 0. I won't remove the rows with no _Age_ value because they make up nearly 20% of the dataset. I could always put -1 in? 
+
+If I'm going to take this seriously, and I'm unable (or inexperienced such that I'm unable) to determine which of mean substitution and 0 substitution is best, then I'll do both, and run all the learning models on both, and submit prediction results for testing from both approaches, and learn which way which is best in this case.
