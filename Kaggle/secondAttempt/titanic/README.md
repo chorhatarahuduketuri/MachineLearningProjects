@@ -186,3 +186,12 @@ I'm also interested in 2nd order polynomial feature engineering.
 
 I've split each of the training sets into training/validation sets using `sklearn.model_selection.test_train_split`, so that I can check the effectiveness of each approach. \
 I'm also mean normalising the training data, then creating 2nd order polynomials from the _original, non-standardised_ training data, and _then_ mean normalising that. 
+
+### Step Five
+'Design, create, and/or train the model'
+
+#### Logistic Regression
+I will create 4 linear regression models for each of the original/polynomial and 0/mean substitution training datasets. 
+
+#### Artificial Neural Network
+I will create 4 neural network models for each of the original/polynomial and 0/mean substitution training datasets. 

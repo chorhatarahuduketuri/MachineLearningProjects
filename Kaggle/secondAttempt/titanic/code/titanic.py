@@ -120,3 +120,8 @@ standardised_X_validate_0_poly = scaler_0_poly.transform(X_validate_0_poly)
 scaler_mean_poly = StandardScaler().fit(X_train_mean_poly)
 standardised_X_train_mean_poly = scaler_mean_poly.transform(X_train_mean_poly)
 standardised_X_validate_mean_poly = scaler_mean_poly.transform(X_validate_mean_poly)
+
+# Step 5 - Model creation and training
+# Logistic Regression
+
+# Neural Network
