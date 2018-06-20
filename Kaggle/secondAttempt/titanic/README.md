@@ -176,3 +176,13 @@ Having decided on what data to use and how to make it usable, I should get on an
 There will be 2 datasets, one called training_data_0 and one called training_data_mean. training_data_0 will have its age NaNs substituted with 0s, training_data_mean will have its age NaNs substituted with the mean of the non-NaN values of the age feature. \
 Testing data will have to be prepared in the same way. I checked and the training_age_mean is 29.699, while the test_age_mean is 30.273. \
 Now that the data is prepared, lets move on to step 4. 
+
+### Step Four 
+'Consider what models might be appropriate to train on the datasets, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'
+
+By default, I will mean normalise my datasets. \
+From previous work, I am interested in using linear regression (because it will give the best results), and neural networks (because they're cool). \
+I'm also interested in 2nd order polynomial feature engineering. 
+
+I've split each of the training sets into training/validation sets using `sklearn.model_selection.test_train_split`, so that I can check the effectiveness of each approach. \
+I'm also mean normalising the training data, then creating 2nd order polynomials from the _original, non-standardised_ training data, and _then_ mean normalising that. 
