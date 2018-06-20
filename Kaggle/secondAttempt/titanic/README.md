@@ -170,7 +170,9 @@ The lack of outlier data in this graph, it's low skew and kurtosis, combined wit
 
 If I'm going to take this seriously, and I'm unable (or inexperienced such that I'm unable) to determine which of mean substitution and 0 substitution is best, then I'll do both, and run all the learning models on both, and submit prediction results for testing from both approaches, and learn which way which is best in this case.
 
-########### Getting the data ready for training
+###### Getting the data ready for training
 Having decided on what data to use and how to make it usable, I should get on and do that. 
 
-There will be 2 datasets, one called training_data_0 and one called training_data_mean. 
+There will be 2 datasets, one called training_data_0 and one called training_data_mean. training_data_0 will have its age NaNs substituted with 0s, training_data_mean will have its age NaNs substituted with the mean of the non-NaN values of the age feature. \
+Testing data will have to be prepared in the same way. I checked and the training_age_mean is 29.699, while the test_age_mean is 30.273. \
+Now that the data is prepared, lets move on to step 4. 
