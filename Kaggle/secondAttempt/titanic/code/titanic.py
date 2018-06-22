@@ -123,5 +123,15 @@ standardised_X_validate_mean_poly = scaler_mean_poly.transform(X_validate_mean_p
 
 # Step 5 - Model creation and training
 # Logistic Regression
+from sklearn.linear_model import LogisticRegression
+lr_original_0sub = LogisticRegression(max_iter=500, solver='lbfgs')
+lr_polynomial_0sub = LogisticRegression(max_iter=500, solver='lbfgs')
+lr_original_meanSub = LogisticRegression(max_iter=500, solver='lbfgs')
+lr_polynomial_meanSub = LogisticRegression(max_iter=500, solver='lbfgs')
+
+lr_original_0sub.fit(X_train_0, y_train_0)
+lr_original_meanSub.fit(X_train_mean, y_train_mean)
+lr_polynomial_0sub.fit(X_train_0_poly, y_train_0)
+lr_polynomial_meanSub.fit(X_train_mean_poly, y_train_mean)
 
 # Neural Network
