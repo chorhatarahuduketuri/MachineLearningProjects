@@ -76,6 +76,7 @@ target_data = titanic_training['Survived']
 # Step 4 - Feature engineering
 # Polynomial feature engineering
 from sklearn.model_selection import train_test_split
+
 # 0sub
 X_train_0, X_validate_0, y_train_0, y_validate_0 = train_test_split(
     training_data_0,
@@ -89,6 +90,7 @@ X_train_mean, X_validate_mean, y_train_mean, y_validate_mean = train_test_split(
 
 # mean normalise the training data
 from sklearn.preprocessing import StandardScaler
+
 # 0sub
 scaler_0 = StandardScaler().fit(X_train_0)
 standardised_X_train_0 = scaler_0.transform(X_train_0)
@@ -100,6 +102,7 @@ standardised_X_validate_mean = scaler_mean.transform(X_validate_mean)
 
 # make some 2nd order polynomial training data
 from sklearn.preprocessing import PolynomialFeatures
+
 # 0sub
 poly_2_0 = PolynomialFeatures(2)
 poly_2_0.fit(X_train_0)
@@ -124,6 +127,7 @@ standardised_X_validate_mean_poly = scaler_mean_poly.transform(X_validate_mean_p
 # Step 5 - Model creation and training
 # Logistic Regression
 from sklearn.linear_model import LogisticRegression
+
 lr_original_0sub = LogisticRegression(max_iter=500, solver='lbfgs')
 lr_polynomial_0sub = LogisticRegression(max_iter=500, solver='lbfgs')
 lr_original_meanSub = LogisticRegression(max_iter=500, solver='lbfgs')
@@ -136,10 +140,11 @@ lr_polynomial_meanSub.fit(X_train_mean_poly, y_train_mean)
 
 # Neural Network
 from sklearn.neural_network import MLPClassifier
-ann_original_0sub = MLPClassifier(hidden_layer_sizes=(100,50,25,12), activation='logistic')
-ann_polynomial_0sub = MLPClassifier(hidden_layer_sizes=(100,50,25,12), activation='logistic')
-ann_original_meanSub = MLPClassifier(hidden_layer_sizes=(100,50,25,12), activation='logistic')
-ann_polynomial_meanSub = MLPClassifier(hidden_layer_sizes=(100,50,25,12), activation='logistic')
+
+ann_original_0sub = MLPClassifier(hidden_layer_sizes=(100, 50, 25, 12), activation='logistic')
+ann_polynomial_0sub = MLPClassifier(hidden_layer_sizes=(100, 50, 25, 12), activation='logistic')
+ann_original_meanSub = MLPClassifier(hidden_layer_sizes=(100, 50, 25, 12), activation='logistic')
+ann_polynomial_meanSub = MLPClassifier(hidden_layer_sizes=(100, 50, 25, 12), activation='logistic')
 
 ann_original_0sub.fit(X_train_0, y_train_0)
 ann_original_meanSub.fit(X_train_mean, y_train_mean)
