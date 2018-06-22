@@ -135,3 +135,13 @@ lr_polynomial_0sub.fit(X_train_0_poly, y_train_0)
 lr_polynomial_meanSub.fit(X_train_mean_poly, y_train_mean)
 
 # Neural Network
+from sklearn.neural_network import MLPClassifier
+ann_original_0sub = MLPClassifier(hidden_layer_sizes=(100,50,25,12), activation='logistic')
+ann_polynomial_0sub = MLPClassifier(hidden_layer_sizes=(100,50,25,12), activation='logistic')
+ann_original_meanSub = MLPClassifier(hidden_layer_sizes=(100,50,25,12), activation='logistic')
+ann_polynomial_meanSub = MLPClassifier(hidden_layer_sizes=(100,50,25,12), activation='logistic')
+
+ann_original_0sub.fit(X_train_0, y_train_0)
+ann_original_meanSub.fit(X_train_mean, y_train_mean)
+ann_polynomial_0sub.fit(X_train_0_poly, y_train_0)
+ann_polynomial_meanSub.fit(X_train_mean_poly, y_train_mean)
