@@ -181,7 +181,7 @@ Now that the data is prepared, lets move on to step 4.
 'Consider what models might be appropriate to train on the datasets, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'
 
 By default, I will mean normalise my datasets. \
-From previous work, I am interested in using linear regression (because it will give the best results), and neural networks (because they're cool). \
+From previous work, I am interested in using logistic regression (because it will give the best results), and neural networks (because they're cool). \
 I'm also interested in 2nd order polynomial feature engineering. 
 
 I've split each of the training sets into training/validation sets using `sklearn.model_selection.test_train_split`, so that I can check the effectiveness of each approach. \
@@ -191,7 +191,7 @@ I'm also mean normalising the training data, then creating 2nd order polynomials
 'Design, create, and/or train the model'
 
 #### Logistic Regression
-I will create 4 linear regression models for each of the original/polynomial and 0/mean substitution training datasets. 
+I will create 4 logistic regression models for each of the original/polynomial and 0/mean substitution training datasets. 
 
 #### Artificial Neural Network
 I will create 4 neural network models for each of the original/polynomial and 0/mean substitution training datasets. 
