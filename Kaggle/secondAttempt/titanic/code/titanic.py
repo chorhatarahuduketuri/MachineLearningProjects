@@ -164,25 +164,28 @@ pred_ann_original_meanSub = ann_original_meanSub.predict(X_validate_mean)
 pred_ann_polynomial_0sub = ann_polynomial_0sub.predict(X_validate_0_poly)
 pred_ann_polynomial_meanSub = ann_polynomial_meanSub.predict(X_validate_mean_poly)
 
+print('Model evaluation metrics: ')
 from sklearn.metrics import accuracy_score
 # Logistic Regression
+print('Logistic Regression:')
 print('Accuracy score - pred_lr_original_0sub: ')
-accuracy_score(pred_lr_original_0sub, y_validate_0)
+print(accuracy_score(pred_lr_original_0sub, y_validate_0))
 print('Accuracy score - pred_lr_original_meanSub: ')
-accuracy_score(pred_lr_original_meanSub, y_validate_mean)
+print(accuracy_score(pred_lr_original_meanSub, y_validate_mean))
 print('Accuracy score - pred_lr_polynomial_0sub: ')
-accuracy_score(pred_lr_polynomial_0sub, y_validate_0)
+print(accuracy_score(pred_lr_polynomial_0sub, y_validate_0))
 print('Accuracy score - pred_lr_polynomial_meanSub: ')
-accuracy_score(pred_lr_polynomial_meanSub, y_validate_mean)
+print(accuracy_score(pred_lr_polynomial_meanSub, y_validate_mean))
 
 # Neural Network
+print('Artificial Neural Networks:')
 print('Accuracy score - pred_ann_original_0sub: ')
-accuracy_score(pred_ann_original_0sub, y_validate_0)
+print(accuracy_score(pred_ann_original_0sub, y_validate_0))
 print('Accuracy score - pred_ann_original_meanSub: ')
-accuracy_score(pred_ann_original_meanSub, y_validate_mean)
+print(accuracy_score(pred_ann_original_meanSub, y_validate_mean))
 print('Accuracy score - pred_ann_polynomial_0sub: ')
-accuracy_score(pred_ann_polynomial_0sub, y_validate_0)
+print(accuracy_score(pred_ann_polynomial_0sub, y_validate_0))
 print('Accuracy score - pred_ann_polynomial_meanSub: ')
-accuracy_score(pred_ann_polynomial_meanSub, y_validate_mean)
+print(accuracy_score(pred_ann_polynomial_meanSub, y_validate_mean))
 
 from sklearn.metrics import classification_report
