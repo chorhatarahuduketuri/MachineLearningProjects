@@ -180,7 +180,7 @@ Now that the data is prepared, lets move on to step 4.
 ### Step Four 
 'Consider what models might be appropriate to train on the datasets, as well as understand which sorts of algorithms will work and which will not. Feature engineering should also be undertaken at this stage, in the case of any selected model that would benefit from or require it.'
 
-By default, I will mean normalise my datasets. \
+By default, I will mean normalise my datasets.\
 From previous work, I am interested in using logistic regression (because it will give the best results), and neural networks (because they're cool). \
 I'm also interested in 2nd order polynomial feature engineering. 
 
@@ -191,7 +191,21 @@ I'm also mean normalising the training data, then creating 2nd order polynomials
 'Design, create, and/or train the model'
 
 #### Logistic Regression
-I will create 4 logistic regression models for each of the original/polynomial and 0/mean substitution training datasets. 
+I will create 4 logistic regression models for each of the original/polynomial and 0/mean substitution training datasets.\
+I made 4 identical logistic regression models as per the previous line. They had `max_iter` set to 500, and `solver` set to lbfgs.\
+They've been trained using the datasets prepared. 
 
 #### Artificial Neural Network
-I will create 4 neural network models for each of the original/polynomial and 0/mean substitution training datasets. 
+I will create 4 neural network models for each of the original/polynomial and 0/mean substitution training datasets.\
+I made 4 identical neural network models as per the previous line. They had `hidden_layer_sizes` set to `100, 50, 25, 12'` (I expect I'll have to update these later), and `activation` set to logistic.\
+I trained them with the same datasets as the logistic regression models. 
+
+### Step Six - model evaluation
+'Evaluation of model on validation set'
+
+To be able to evaluate the performance of my models, I'm using my trained models to make predictions on the validation set I set aside earlier.\
+To calculate their performance I'm using `sklearn.metrics.accuracy_score`, which tells me the proportion of the validation set that is accurately predicted, and `sklearn.metrics.classification_report`, which tells me the precision, recall, f1 score, and support for the validation set predictions. I don't actually know what support is. Apparently it's the 'number of samples of the true response that lie in that class'. Which is not super clear at this point.\
+Oh OK having actually looked at my own results I now get it. The support is the number of times that class was predicted correctly.
+
+###### Interpretation
+Basically everything is perfect. Therefore my models are highly inaccurate and will get _useless_ results.

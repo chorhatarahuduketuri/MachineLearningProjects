@@ -165,7 +165,9 @@ pred_ann_polynomial_0sub = ann_polynomial_0sub.predict(X_validate_0_poly)
 pred_ann_polynomial_meanSub = ann_polynomial_meanSub.predict(X_validate_mean_poly)
 
 print('Model evaluation metrics: ')
+print('Accuracy:')
 from sklearn.metrics import accuracy_score
+
 # Logistic Regression
 print('Logistic Regression:')
 print('Accuracy score - pred_lr_original_0sub: ')
@@ -188,4 +190,28 @@ print(accuracy_score(pred_ann_polynomial_0sub, y_validate_0))
 print('Accuracy score - pred_ann_polynomial_meanSub: ')
 print(accuracy_score(pred_ann_polynomial_meanSub, y_validate_mean))
 
+print('Classification Report:')
 from sklearn.metrics import classification_report
+target_names = ['fatality', 'survivor']
+
+# Logistic Regression
+print('Logistic Regression:')
+print('Classification report - pred_lr_original_0sub: ')
+print(classification_report(pred_lr_original_0sub, y_validate_0, target_names=target_names))
+print('Classification report - pred_lr_original_meanSub: ')
+print(classification_report(pred_lr_original_meanSub, y_validate_mean, target_names=target_names))
+print('Classification report - pred_lr_polynomial_0sub: ')
+print(classification_report(pred_lr_polynomial_0sub, y_validate_0, target_names=target_names))
+print('Classification report - pred_lr_polynomial_meanSub: ')
+print(classification_report(pred_lr_polynomial_meanSub, y_validate_mean, target_names=target_names))
+
+# Neural Network
+print('Artificial Neural Networks:')
+print('Classification report - pred_ann_original_0sub: ')
+print(classification_report(pred_ann_original_0sub, y_validate_0, target_names=target_names))
+print('Classification report - pred_ann_original_meanSub: ')
+print(classification_report(pred_ann_original_meanSub, y_validate_mean, target_names=target_names))
+print('Classification report - pred_ann_polynomial_0sub: ')
+print(classification_report(pred_ann_polynomial_0sub, y_validate_0, target_names=target_names))
+print('Classification report - pred_ann_polynomial_meanSub: ')
+print(classification_report(pred_ann_polynomial_meanSub, y_validate_mean, target_names=target_names))
