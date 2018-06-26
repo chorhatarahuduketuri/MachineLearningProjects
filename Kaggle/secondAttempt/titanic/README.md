@@ -227,3 +227,12 @@ OK, so, as part of the model evaluation I'm going to use the testing mechanism o
 First, I'll take a look at the example submission file. It's just a two column CSV file, with column headers. The first column is 'PassengerId', the second is 'Survived'.\
 Taking the 8 models I have created, I'll crate a submission file from each of them and submit that to see what they've got.
 
+----
+
+#### I have done a stupid, again
+Once again, I have failed to use the standardised form of my training data even once after creating it. I will now correct that.\
+Fortunately for me, the results haven't changed. 
+
+And now, back to something that isn't me being dumb. 
+
+----

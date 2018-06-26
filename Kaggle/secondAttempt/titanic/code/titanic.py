@@ -133,10 +133,10 @@ lr_polynomial_0sub = LogisticRegression(max_iter=500, solver='lbfgs')
 lr_original_meanSub = LogisticRegression(max_iter=500, solver='lbfgs')
 lr_polynomial_meanSub = LogisticRegression(max_iter=500, solver='lbfgs')
 
-lr_original_0sub.fit(X_train_0, y_train_0)
-lr_original_meanSub.fit(X_train_mean, y_train_mean)
-lr_polynomial_0sub.fit(X_train_0_poly, y_train_0)
-lr_polynomial_meanSub.fit(X_train_mean_poly, y_train_mean)
+lr_original_0sub.fit(standardised_X_train_0, y_train_0)
+lr_original_meanSub.fit(standardised_X_train_mean, y_train_mean)
+lr_polynomial_0sub.fit(standardised_X_train_0_poly, y_train_0)
+lr_polynomial_meanSub.fit(standardised_X_train_mean_poly, y_train_mean)
 
 # Neural Network
 from sklearn.neural_network import MLPClassifier
@@ -146,23 +146,23 @@ ann_polynomial_0sub = MLPClassifier(hidden_layer_sizes=(100, 50, 25, 12), activa
 ann_original_meanSub = MLPClassifier(hidden_layer_sizes=(100, 50, 25, 12), activation='logistic')
 ann_polynomial_meanSub = MLPClassifier(hidden_layer_sizes=(100, 50, 25, 12), activation='logistic')
 
-ann_original_0sub.fit(X_train_0, y_train_0)
-ann_original_meanSub.fit(X_train_mean, y_train_mean)
-ann_polynomial_0sub.fit(X_train_0_poly, y_train_0)
-ann_polynomial_meanSub.fit(X_train_mean_poly, y_train_mean)
+ann_original_0sub.fit(standardised_X_train_0, y_train_0)
+ann_original_meanSub.fit(standardised_X_train_mean, y_train_mean)
+ann_polynomial_0sub.fit(standardised_X_train_0_poly, y_train_0)
+ann_polynomial_meanSub.fit(standardised_X_train_mean_poly, y_train_mean)
 
 # Step 6 - Evaluation of model on Validation set
 # Logistic Regression
-pred_lr_original_0sub = lr_original_0sub.predict(X_validate_0)
-pred_lr_original_meanSub = lr_original_meanSub.predict(X_validate_mean)
-pred_lr_polynomial_0sub = lr_polynomial_0sub.predict(X_validate_0_poly)
-pred_lr_polynomial_meanSub = lr_polynomial_meanSub.predict(X_validate_mean_poly)
+pred_lr_original_0sub = lr_original_0sub.predict(standardised_X_validate_0)
+pred_lr_original_meanSub = lr_original_meanSub.predict(standardised_X_validate_mean)
+pred_lr_polynomial_0sub = lr_polynomial_0sub.predict(standardised_X_validate_0_poly)
+pred_lr_polynomial_meanSub = lr_polynomial_meanSub.predict(standardised_X_validate_mean_poly)
 
 # Neural Network
-pred_ann_original_0sub = ann_original_0sub.predict(X_validate_0)
-pred_ann_original_meanSub = ann_original_meanSub.predict(X_validate_mean)
-pred_ann_polynomial_0sub = ann_polynomial_0sub.predict(X_validate_0_poly)
-pred_ann_polynomial_meanSub = ann_polynomial_meanSub.predict(X_validate_mean_poly)
+pred_ann_original_0sub = ann_original_0sub.predict(standardised_X_validate_0)
+pred_ann_original_meanSub = ann_original_meanSub.predict(standardised_X_validate_mean)
+pred_ann_polynomial_0sub = ann_polynomial_0sub.predict(standardised_X_validate_0_poly)
+pred_ann_polynomial_meanSub = ann_polynomial_meanSub.predict(standardised_X_validate_mean_poly)
 
 print('Model evaluation metrics: ')
 print('Accuracy:')
