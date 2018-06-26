@@ -207,5 +207,23 @@ To be able to evaluate the performance of my models, I'm using my trained models
 To calculate their performance I'm using `sklearn.metrics.accuracy_score`, which tells me the proportion of the validation set that is accurately predicted, and `sklearn.metrics.classification_report`, which tells me the precision, recall, f1 score, and support for the validation set predictions. I don't actually know what support is. Apparently it's the 'number of samples of the true response that lie in that class'. Which is not super clear at this point.\
 Oh OK having actually looked at my own results I now get it. The support is the number of times that class was predicted correctly.
 
-###### Interpretation
-Basically everything is perfect. Therefore my models are highly inaccurate and will get _useless_ results.
+##### Interpretation
+Basically everything is perfect. My previous experience of this is decidedly mediocre results, and therefore I interpret this to mean that my models are highly inaccurate and will get _useless_ results.\
+The question I have is: how do I improve on this? Also, how do I even prove this is bad? That's two questions. I have multiple questions. I will make a list.
+
+* Is this result really bad?\
+_I don't know._ 
+* How can I find out if it's bad?\
+_Submit to Kaggle._
+* Can I get data from the models on how they learned?\
+_I don't know - I'll have to look into that._
+* Can I make a graph of that data?\
+_I most certainly hope so!_
+* What can I do to improve the models performance?\
+_Well that depends on what's wrong with it. Although I suspect that lots of extra neurons will be part of helping the ANNs._
+
+
+OK, so, as part of the model evaluation I'm going to use the testing mechanism of submitting to Kaggle. This isn't exactly optimal, but for such a tiny dataset I'm going to have to make do.\
+First, I'll take a look at the example submission file. It's just a two column CSV file, with column headers. The first column is 'PassengerId', the second is 'Survived'.\
+Taking the 8 models I have created, I'll crate a submission file from each of them and submit that to see what they've got.
+

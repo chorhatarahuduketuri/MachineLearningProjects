@@ -55,21 +55,21 @@ fig3.savefig('../gitIgnoreDir/Age_histogram.png')
 # training
 # 0sub
 training_data_0 = titanic_training[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
-nan_indicies = np.isnan(training_data_0[:, 2])
-training_data_0[:, 2][nan_indicies] = 0
+train_nan_indicies = np.isnan(training_data_0[:, 2])
+training_data_0[:, 2][train_nan_indicies] = 0
 # meansub
 training_data_mean = titanic_training[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
 training_age_mean = np.nanmean(training_data_mean, axis=0)[2]
-training_data_mean[:, 2][nan_indicies] = training_age_mean
+training_data_mean[:, 2][train_nan_indicies] = training_age_mean
 # testing
 # 0sub
 test_data_0 = titanic_test[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
-nan_indicies = np.isnan(test_data_0[:, 1])
-test_data_0[:, 2][nan_indicies] = 0
+test_nan_indicies = np.isnan(test_data_0[:, 1])
+test_data_0[:, 1][test_nan_indicies] = 0
 # meansub
 test_data_mean = titanic_test[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
 test_age_mean = np.nanmean(test_data_mean, axis=0)[1]
-test_data_mean[:, 2][nan_indicies] = test_age_mean
+test_data_mean[:, 1][test_nan_indicies] = test_age_mean
 
 target_data = titanic_training['Survived']
 
@@ -215,3 +215,5 @@ print('Classification report - pred_ann_polynomial_0sub: ')
 print(classification_report(pred_ann_polynomial_0sub, y_validate_0, target_names=target_names))
 print('Classification report - pred_ann_polynomial_meanSub: ')
 print(classification_report(pred_ann_polynomial_meanSub, y_validate_mean, target_names=target_names))
+
+# Create submittable CSVs
