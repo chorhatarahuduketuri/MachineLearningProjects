@@ -157,8 +157,6 @@ pred_lr_original_0sub = lr_original_0sub.predict(standardised_X_validate_0)
 pred_lr_original_meanSub = lr_original_meanSub.predict(standardised_X_validate_mean)
 pred_lr_polynomial_0sub = lr_polynomial_0sub.predict(standardised_X_validate_0_poly)
 pred_lr_polynomial_meanSub = lr_polynomial_meanSub.predict(standardised_X_validate_mean_poly)
-
-# Neural Network
 pred_ann_original_0sub = ann_original_0sub.predict(standardised_X_validate_0)
 pred_ann_original_meanSub = ann_original_meanSub.predict(standardised_X_validate_mean)
 pred_ann_polynomial_0sub = ann_polynomial_0sub.predict(standardised_X_validate_0_poly)
@@ -192,6 +190,7 @@ print(accuracy_score(pred_ann_polynomial_meanSub, y_validate_mean))
 
 print('Classification Report:')
 from sklearn.metrics import classification_report
+
 target_names = ['fatality', 'survivor']
 
 # Logistic Regression
@@ -217,3 +216,42 @@ print('Classification report - pred_ann_polynomial_meanSub: ')
 print(classification_report(pred_ann_polynomial_meanSub, y_validate_mean, target_names=target_names))
 
 # Create submittable CSVs
+# Get rid of NaNs in the test data:
+test_nan_index = np.argwhere(np.isnan(test_data_0))
+test_data_0[test_nan_index[0, 0], test_nan_index[0, 1]] = 0
+test_data_mean[test_nan_index[0, 0], test_nan_index[0, 1]] = 0
+# Create the polynomial versions
+x_test_0_poly = poly_2_0.transform(test_data_0)
+X_test_mean_poly = poly_2_mean.transform(test_data_mean)
+# Standardise all 4 test datasets
+standardised_X_test_0 = scaler_0.transform(test_data_0)
+standardised_X_test_mean = scaler_mean.transform(test_data_mean)
+standardised_X_test_0_poly = scaler_0_poly.transform(test_data_0)
+standardised_X_test_mean_poly = scaler_mean_poly.transform(test_data_mean)
+# Make the 8 predictions
+X_submission_1_0_lr_prediction = lr_original_0sub.predict(standardised_X_test_0)
+X_submission_1_mean_lr_prediction = lr_original_meanSub.predict(standardised_X_test_mean)
+X_submission_2_0_lr_prediction = lr_polynomial_0sub.predict(standardised_X_test_0_poly)
+X_submission_2_mean_lr_prediction = lr_polynomial_meanSub.predict(standardised_X_test_mean_poly)
+X_submission_1_0_lann_prediction = ann_original_0sub.predict(standardised_X_test_0)
+X_submission_1_mean_ann_prediction = ann_original_meanSub.predict(standardised_X_test_mean)
+X_submission_2_0_ann_prediction = ann_polynomial_0sub.predict(standardised_X_test_0_poly)
+X_submission_2_mean_ann_prediction = ann_polynomial_meanSub.predict(standardised_X_test_mean_poly)
+# Save to disk in appropriate format
+submission_1_0_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_0_lr_prediction})
+submission_1_mean_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_mean_lr_prediction})
+submission_2_0_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_0_lr_prediction})
+submission_2_mean_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_mean_lr_prediction})
+submission_1_0_lann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_0_lann_prediction})
+submission_1_mean_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_mean_ann_prediction})
+submission_2_0_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_0_ann_prediction})
+submission_2_mean_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_mean_ann_prediction})
+
+submission_1_0_lr.to_csv("../datasets/submissions/X_submission_1_0_lr_prediction.csv", index=False)
+submission_1_mean_lr.to_csv("../datasets/submissions/X_submission_1_mean_lr_prediction.csv", index=False)
+submission_2_0_lr.to_csv("../datasets/submissions/X_submission_2_0_lr_prediction.csv", index=False)
+submission_2_mean_lr.to_csv("../datasets/submissions/X_submission_2_mean_lr_prediction.csv", index=False)
+submission_1_0_lann.to_csv("../datasets/submissions/X_submission_1_0_lann_prediction.csv", index=False)
+submission_1_mean_ann.to_csv("../datasets/submissions/X_submission_1_mean_ann_prediction.csv", index=False)
+submission_2_0_ann.to_csv("../datasets/submissions/X_submission_2_0_ann_prediction.csv", index=False)
+submission_2_mean_ann.to_csv("../datasets/submissions/X_submission_2_mean_ann_prediction.csv", index=False)

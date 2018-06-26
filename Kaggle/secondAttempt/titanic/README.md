@@ -236,3 +236,5 @@ Fortunately for me, the results haven't changed.
 And now, back to something that isn't me being dumb. 
 
 ----
+
+In the test data, a single data point is a NaN. It's the fare of the 152nd passenger of the test data. I will just set their fare to 0 and proceed. 
