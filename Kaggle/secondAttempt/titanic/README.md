@@ -238,3 +238,10 @@ And now, back to something that isn't me being dumb.
 ----
 
 In the test data, a single data point is a NaN. It's the fare of the 152nd passenger of the test data. I will just set their fare to 0 and proceed. 
+
+----
+
+#### I have discovered another stupid. This time it's so bad I'm going to start again.
+This time the stupid is that I've included the 'Survived' feature in the training and validation data. This explains why it's so bloody accurate. I'll just rewrite the report so far to fit that as otherwise I'm dragging you through boring useless pointlessness.
+
+----
