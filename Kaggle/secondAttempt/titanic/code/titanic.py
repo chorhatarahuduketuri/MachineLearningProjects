@@ -54,22 +54,24 @@ fig3.savefig('../gitIgnoreDir/Age_histogram.png')
 
 # training
 # 0sub
-training_data_0 = titanic_training[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
-train_nan_indicies = np.isnan(training_data_0[:, 2])
-training_data_0[:, 2][train_nan_indicies] = 0
+training_data_0 = titanic_training[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+train_nan_indicies_0 = np.isnan(training_data_0[:, 1])
+training_data_0[:, 1][train_nan_indicies_0] = 0
 # meansub
-training_data_mean = titanic_training[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
-training_age_mean = np.nanmean(training_data_mean, axis=0)[2]
-training_data_mean[:, 2][train_nan_indicies] = training_age_mean
+training_data_mean = titanic_training[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+training_age_mean = np.nanmean(training_data_mean, axis=0)[1]
+train_nan_indicies_mean = np.isnan(training_data_mean[:, 1])
+training_data_mean[:, 1][train_nan_indicies_mean] = training_age_mean
 # testing
 # 0sub
 test_data_0 = titanic_test[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
-test_nan_indicies = np.isnan(test_data_0[:, 1])
-test_data_0[:, 1][test_nan_indicies] = 0
+test_nan_indicies_0 = np.isnan(test_data_0[:, 1])
+test_data_0[:, 1][test_nan_indicies_0] = 0
 # meansub
 test_data_mean = titanic_test[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
 test_age_mean = np.nanmean(test_data_mean, axis=0)[1]
-test_data_mean[:, 1][test_nan_indicies] = test_age_mean
+test_nan_indicies_mean = np.isnan(test_data_mean[:, 1])
+test_data_mean[:, 1][test_nan_indicies_mean] = test_age_mean
 
 target_data = titanic_training['Survived']
 
@@ -221,19 +223,19 @@ test_nan_index = np.argwhere(np.isnan(test_data_0))
 test_data_0[test_nan_index[0, 0], test_nan_index[0, 1]] = 0
 test_data_mean[test_nan_index[0, 0], test_nan_index[0, 1]] = 0
 # Create the polynomial versions
-x_test_0_poly = poly_2_0.transform(test_data_0)
-X_test_mean_poly = poly_2_mean.transform(test_data_mean)
+test_data_0_poly = poly_2_0.transform(test_data_0)
+test_data_mean_poly = poly_2_mean.transform(test_data_mean)
 # Standardise all 4 test datasets
 standardised_X_test_0 = scaler_0.transform(test_data_0)
 standardised_X_test_mean = scaler_mean.transform(test_data_mean)
-standardised_X_test_0_poly = scaler_0_poly.transform(test_data_0)
-standardised_X_test_mean_poly = scaler_mean_poly.transform(test_data_mean)
+standardised_X_test_0_poly = scaler_0_poly.transform(test_data_0_poly)
+standardised_X_test_mean_poly = scaler_mean_poly.transform(test_data_mean_poly)
 # Make the 8 predictions
 X_submission_1_0_lr_prediction = lr_original_0sub.predict(standardised_X_test_0)
 X_submission_1_mean_lr_prediction = lr_original_meanSub.predict(standardised_X_test_mean)
 X_submission_2_0_lr_prediction = lr_polynomial_0sub.predict(standardised_X_test_0_poly)
 X_submission_2_mean_lr_prediction = lr_polynomial_meanSub.predict(standardised_X_test_mean_poly)
-X_submission_1_0_lann_prediction = ann_original_0sub.predict(standardised_X_test_0)
+X_submission_1_0_ann_prediction = ann_original_0sub.predict(standardised_X_test_0)
 X_submission_1_mean_ann_prediction = ann_original_meanSub.predict(standardised_X_test_mean)
 X_submission_2_0_ann_prediction = ann_polynomial_0sub.predict(standardised_X_test_0_poly)
 X_submission_2_mean_ann_prediction = ann_polynomial_meanSub.predict(standardised_X_test_mean_poly)
@@ -242,7 +244,7 @@ submission_1_0_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "S
 submission_1_mean_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_mean_lr_prediction})
 submission_2_0_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_0_lr_prediction})
 submission_2_mean_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_mean_lr_prediction})
-submission_1_0_lann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_0_lann_prediction})
+submission_1_0_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_0_ann_prediction})
 submission_1_mean_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_mean_ann_prediction})
 submission_2_0_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_0_ann_prediction})
 submission_2_mean_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_mean_ann_prediction})
@@ -251,7 +253,7 @@ submission_1_0_lr.to_csv("../datasets/submissions/X_submission_1_0_lr_prediction
 submission_1_mean_lr.to_csv("../datasets/submissions/X_submission_1_mean_lr_prediction.csv", index=False)
 submission_2_0_lr.to_csv("../datasets/submissions/X_submission_2_0_lr_prediction.csv", index=False)
 submission_2_mean_lr.to_csv("../datasets/submissions/X_submission_2_mean_lr_prediction.csv", index=False)
-submission_1_0_lann.to_csv("../datasets/submissions/X_submission_1_0_lann_prediction.csv", index=False)
+submission_1_0_ann.to_csv("../datasets/submissions/X_submission_1_0_ann_prediction.csv", index=False)
 submission_1_mean_ann.to_csv("../datasets/submissions/X_submission_1_mean_ann_prediction.csv", index=False)
 submission_2_0_ann.to_csv("../datasets/submissions/X_submission_2_0_ann_prediction.csv", index=False)
 submission_2_mean_ann.to_csv("../datasets/submissions/X_submission_2_mean_ann_prediction.csv", index=False)

@@ -208,13 +208,9 @@ To calculate their performance I'm using `sklearn.metrics.accuracy_score`, which
 Oh OK having actually looked at my own results I now get it. The support is the number of times that class was predicted correctly.
 
 ##### Interpretation
-Basically everything is perfect. My previous experience of this is decidedly mediocre results, and therefore I interpret this to mean that my models are highly inaccurate and will get _useless_ results.\
-The question I have is: how do I improve on this? Also, how do I even prove this is bad? That's two questions. I have multiple questions. I will make a list.
 
 * Is this result really bad?\
-_I don't know._ 
-* How can I find out if it's bad?\
-_Submit to Kaggle._
+_Yes why isn't its f1-score 0.95+?_ 
 * Can I get data from the models on how they learned?\
 _I don't know - I'll have to look into that._
 * Can I make a graph of that data?\
@@ -222,26 +218,3 @@ _I most certainly hope so!_
 * What can I do to improve the models performance?\
 _Well that depends on what's wrong with it. Although I suspect that lots of extra neurons will be part of helping the ANNs._
 
-
-OK, so, as part of the model evaluation I'm going to use the testing mechanism of submitting to Kaggle. This isn't exactly optimal, but for such a tiny dataset I'm going to have to make do.\
-First, I'll take a look at the example submission file. It's just a two column CSV file, with column headers. The first column is 'PassengerId', the second is 'Survived'.\
-Taking the 8 models I have created, I'll crate a submission file from each of them and submit that to see what they've got.
-
-----
-
-#### I have done a stupid, again
-Once again, I have failed to use the standardised form of my training data even once after creating it. I will now correct that.\
-Fortunately for me, the results haven't changed. 
-
-And now, back to something that isn't me being dumb. 
-
-----
-
-In the test data, a single data point is a NaN. It's the fare of the 152nd passenger of the test data. I will just set their fare to 0 and proceed. 
-
-----
-
-#### I have discovered another stupid. This time it's so bad I'm going to start again.
-This time the stupid is that I've included the 'Survived' feature in the training and validation data. This explains why it's so bloody accurate. I'll just rewrite the report so far to fit that as otherwise I'm dragging you through boring useless pointlessness.
-
-----
