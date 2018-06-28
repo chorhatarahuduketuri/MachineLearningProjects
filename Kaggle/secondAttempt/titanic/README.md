@@ -229,3 +229,40 @@ I could use something like grid search to tune the hyperparameters of my models.
 
 ### Step Seven - hyperparameter tuning
 '7. Hyperparameter turning (improving model performance).' 
+
+OK, so, there are a lot of hyperparameters and I'm not doing all this by hand. What options are there? 
+Well firstly, lets look at what hyperparameters there are:\
+Logistic Regression:  
+* penalty 
+* stopping criteria tolerance (tol)
+* C
+* solver
+* maximum iterations (max_iter)
+
+Neural Networks:
+* hidden layers (hidden_layer_sizes) 
+* activation
+* solver
+* alpha
+* learning rate (learning_rate)
+* learning rate initial value (learning_rate_init)
+* stopping criteria tolerance (tol)
+
+That's a lot of stuff. I am _definitely_ not doing that by hand. \
+Cue, `GridSearchCV`. A magical bit of code, and part of, `sklearn.model_selection`. It takes an estimator, and some parameters, and runs the estimator with all the combinations of the provided parameters. Neat.
+
+Which parameters to have `GridSearchCV` search over...  why not all? Because I don't have enough RAM is why not all. So lets cut that down to something more interesting anyway.\
+Logistic Regression:
+* `C`; in steps of 0.1, from 0.1 to 4.0
+* `solvers`; liblinear and lbfgs
+* `tol`; in steps of 0.00001, from 0.00001 to 0.004
+
+Neural Networks;
+* `hidden_layer_sizes`; (100, 50, 25, 12) and (50, 40, 30, 20, 10, 5)
+* `alpha`; in steps of 0.00001, from 0.00001 to 0.0004
+* `learning_rate`; adaptive and constant
+* `learning_rate_init`; in steps of 0.0001, from 0.0001 to 0.004
+
+All of these I get, and know are relevant to improving learning. The only one I don't really know a lot about is `hidden_layer_sizes`, since I'm no expert on ANN topology, except that MOAR IS BETTA. This is a test to see if a larger number of neurons arranged in a smaller number of larger layers, is better than a smaller number of neurons, arranged in a larger number of smaller layers.
+
+Currently neither of my computers have finished calculating any of this, and some have been at it for what we will politely term a while. The one I'm writing this on (faster CPU, less RAM) suffered a segfault near the end of the last run. I'm trying again and we'll see what happens. 

@@ -251,26 +251,19 @@ print('gridSearch_lr_mean_poly.best_params_:')
 print(gridSearch_lr_mean_poly.best_params_)
 
 # Artificial Neural Network
-parameters = {'hidden_layer_sizes': [(100, 50, 25, 12),
-                                     (100, 100, 50, 50, 25, 25, 12, 12),
-                                     (175, 150, 125, 100, 75, 50, 25, 12),
-                                     (2100, 1575, 1050, 525, 250, 175, 100, 50, 25)],
-              'activation': ('identity', 'logistic', 'tanh', 'relu'),
-              'solver': ('lbfgs', 'sgd', 'adam'),
+parameters = {'hidden_layer_sizes': [(100, 50, 25, 12), (50, 40, 30, 20, 10, 5)],
               'alpha': np.arange(0.00001, 0.0004, 0.00001),
-              'learning_rate': ('constant', 'invscaling', 'adaptive'),
-              'learning_rate_init': np.arange(0.0001, 0.004, 0.0001),
-              'power_t': np.arange(0.1, 1, 0.1),
-              'tol': np.arange(0.00001, 0.001, 0.00001)
+              'learning_rate': ('constant', 'adaptive'),
+              'learning_rate_init': np.arange(0.0001, 0.004, 0.0001)
               }
-gridSearch_ann_0_1 = GridSearchCV(MLPClassifier(max_iter=500), parameters, verbose=1, n_jobs=3)
-gridSearch_ann_0_1.fit(standardised_X_train_0)
-gridSearch_ann_mean_1 = GridSearchCV(MLPClassifier(max_iter=500), parameters, verbose=1, n_jobs=3)
-gridSearch_ann_mean_1.fit(standardised_X_train_mean)
-gridSearch_ann_0_poly = GridSearchCV(MLPClassifier(max_iter=500), parameters, verbose=1, n_jobs=3)
-gridSearch_ann_0_poly.fit(standardised_X_train_0_poly)
-gridSearch_ann_mean_poly = GridSearchCV(MLPClassifier(max_iter=500), parameters, verbose=1, n_jobs=3)
-gridSearch_ann_mean_poly.fit(standardised_X_train_mean_poly)
+gridSearch_ann_0_1 = GridSearchCV(MLPClassifier(solver='lbfgs', activation='logistic', max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_ann_0_1.fit(standardised_X_train_0, y_train_0)
+gridSearch_ann_mean_1 = GridSearchCV(MLPClassifier(solver='lbfgs', activation='logistic', max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_ann_mean_1.fit(standardised_X_train_mean, y_train_mean)
+gridSearch_ann_0_poly = GridSearchCV(MLPClassifier(solver='lbfgs', activation='logistic', max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_ann_0_poly.fit(standardised_X_train_0_poly, y_train_0)
+gridSearch_ann_mean_poly = GridSearchCV(MLPClassifier(solver='lbfgs', activation='logistic', max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_ann_mean_poly.fit(standardised_X_train_mean_poly, y_train_mean)
 print('gridSearch_ann_0_1.best_score_:')
 print(gridSearch_ann_0_1.best_score_)
 print('gridSearch_ann_0_1.best_params_:')
