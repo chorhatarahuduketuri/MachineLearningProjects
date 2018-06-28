@@ -208,13 +208,24 @@ To calculate their performance I'm using `sklearn.metrics.accuracy_score`, which
 Oh OK having actually looked at my own results I now get it. The support is the number of times that class was predicted correctly.
 
 ##### Interpretation
+So, the accuracy for all 8 classifiers is ~0.6~0.7, with occasional variations outside of that, but not by much.\
+The f1-scores are ~0.5~0.8, which in itself is awfully low, and is also spread across a worryingly large range.\
+Clearly I need to do some improvement.
+ 
+* **Question**: Is this result really bad?\
+**Answer**: _Yes why isn't its f1-score 0.95+?_ 
+* **Question**: Can I get data from the models on how they learned?\
+**Answer**: _I don't know - I'll have to look into that._
+* **Question**: Can I make a graph of that data?\
+**Answer**: _I most certainly hope so!_
+* **Question**: What can I do to improve the models performance?\
+**Answer**: _Well that depends on what's wrong with it. Although I suspect that lots of extra neurons will be part of helping the ANNs._
 
-* Is this result really bad?\
-_Yes why isn't its f1-score 0.95+?_ 
-* Can I get data from the models on how they learned?\
-_I don't know - I'll have to look into that._
-* Can I make a graph of that data?\
-_I most certainly hope so!_
-* What can I do to improve the models performance?\
-_Well that depends on what's wrong with it. Although I suspect that lots of extra neurons will be part of helping the ANNs._
+What to do, what to do. 
+Well, I've already scaled and normalised my features. 
+The class imbalance is not too great (only about 2:1, I would consider it imbalanced enough to require intervention at 10:1). 
+All the scores are rubbish, so I can't just swap one for another (plus, the main objective is accuracy).
+I could use something like grid search to tune the hyperparameters of my models. That sounds like it could have some positive effect, plus 'hyperparameters' is a cool word. 
 
+### Step Seven - hyperparameter tuning
+'7. Hyperparameter turning (improving model performance).' 

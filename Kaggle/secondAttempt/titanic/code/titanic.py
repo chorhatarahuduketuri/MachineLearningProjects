@@ -217,6 +217,78 @@ print(classification_report(pred_ann_polynomial_0sub, y_validate_0, target_names
 print('Classification report - pred_ann_polynomial_meanSub: ')
 print(classification_report(pred_ann_polynomial_meanSub, y_validate_mean, target_names=target_names))
 
+# Step 7 - Hyperparameter tuning
+from sklearn.model_selection import GridSearchCV
+
+# Logistic Regression
+parameters = {'C': np.arange(0.1, 4, 0.1),
+              'solver': ('liblinear', 'lbfgs'),
+              'tol': np.arange(0.00001, 0.001, 0.00001)
+              }
+gridSearch_lr_0_1 = GridSearchCV(LogisticRegression(max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_lr_0_1.fit(standardised_X_train_0, y_train_0)
+gridSearch_lr_mean_1 = GridSearchCV(LogisticRegression(max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_lr_mean_1.fit(standardised_X_train_mean, y_train_mean)
+gridSearch_lr_0_poly = GridSearchCV(LogisticRegression(max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_lr_0_poly.fit(standardised_X_train_0_poly, y_train_0)
+gridSearch_lr_mean_poly = GridSearchCV(LogisticRegression(max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_lr_mean_poly.fit(standardised_X_train_mean_poly, y_train_mean)
+print('gridSearch_lr_0_1.best_score_:')
+print(gridSearch_lr_0_1.best_score_)
+print('gridSearch_lr_0_1.best_params_:')
+print(gridSearch_lr_0_1.best_params_)
+print('gridSearch_lr_mean_1.best_score_:')
+print(gridSearch_lr_mean_1.best_score_)
+print('gridSearch_lr_mean_1.best_params_:')
+print(gridSearch_lr_mean_1.best_params_)
+print('gridSearch_lr_0_poly.best_score_:')
+print(gridSearch_lr_0_poly.best_score_)
+print('gridSearch_lr_0_poly.best_params_:')
+print(gridSearch_lr_0_poly.best_params_)
+print('gridSearch_lr_mean_poly.best_score_:')
+print(gridSearch_lr_mean_poly.best_score_)
+print('gridSearch_lr_mean_poly.best_params_:')
+print(gridSearch_lr_mean_poly.best_params_)
+
+# Artificial Neural Network
+parameters = {'hidden_layer_sizes': [(100, 50, 25, 12),
+                                     (100, 100, 50, 50, 25, 25, 12, 12),
+                                     (175, 150, 125, 100, 75, 50, 25, 12),
+                                     (2100, 1575, 1050, 525, 250, 175, 100, 50, 25)],
+              'activation': ('identity', 'logistic', 'tanh', 'relu'),
+              'solver': ('lbfgs', 'sgd', 'adam'),
+              'alpha': np.arange(0.00001, 0.0004, 0.00001),
+              'learning_rate': ('constant', 'invscaling', 'adaptive'),
+              'learning_rate_init': np.arange(0.0001, 0.004, 0.0001),
+              'power_t': np.arange(0.1, 1, 0.1),
+              'tol': np.arange(0.00001, 0.001, 0.00001)
+              }
+gridSearch_ann_0_1 = GridSearchCV(MLPClassifier(max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_ann_0_1.fit(standardised_X_train_0)
+gridSearch_ann_mean_1 = GridSearchCV(MLPClassifier(max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_ann_mean_1.fit(standardised_X_train_mean)
+gridSearch_ann_0_poly = GridSearchCV(MLPClassifier(max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_ann_0_poly.fit(standardised_X_train_0_poly)
+gridSearch_ann_mean_poly = GridSearchCV(MLPClassifier(max_iter=500), parameters, verbose=1, n_jobs=3)
+gridSearch_ann_mean_poly.fit(standardised_X_train_mean_poly)
+print('gridSearch_ann_0_1.best_score_:')
+print(gridSearch_ann_0_1.best_score_)
+print('gridSearch_ann_0_1.best_params_:')
+print(gridSearch_ann_0_1.best_params_)
+print('gridSearch_ann_mean_1.best_score_:')
+print(gridSearch_ann_mean_1.best_score_)
+print('gridSearch_ann_mean_1.best_params_:')
+print(gridSearch_ann_mean_1.best_params_)
+print('gridSearch_ann_0_poly.best_score_:')
+print(gridSearch_ann_0_poly.best_score_)
+print('gridSearch_ann_0_poly.best_params_:')
+print(gridSearch_ann_0_poly.best_params_)
+print('gridSearch_ann_mean_poly.best_score_:')
+print(gridSearch_ann_mean_poly.best_score_)
+print('gridSearch_ann_mean_poly.best_params_:')
+print(gridSearch_ann_mean_poly.best_params_)
+exit(code=3)
+# Step 8 - Prediction
 # Create submittable CSVs
 # Get rid of NaNs in the test data:
 test_nan_index = np.argwhere(np.isnan(test_data_0))
@@ -239,15 +311,33 @@ X_submission_1_0_ann_prediction = ann_original_0sub.predict(standardised_X_test_
 X_submission_1_mean_ann_prediction = ann_original_meanSub.predict(standardised_X_test_mean)
 X_submission_2_0_ann_prediction = ann_polynomial_0sub.predict(standardised_X_test_0_poly)
 X_submission_2_mean_ann_prediction = ann_polynomial_meanSub.predict(standardised_X_test_mean_poly)
+
+# Step 9 - Deployment to production
 # Save to disk in appropriate format
-submission_1_0_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_0_lr_prediction})
-submission_1_mean_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_mean_lr_prediction})
-submission_2_0_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_0_lr_prediction})
-submission_2_mean_lr = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_mean_lr_prediction})
-submission_1_0_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_0_ann_prediction})
-submission_1_mean_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_1_mean_ann_prediction})
-submission_2_0_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_0_ann_prediction})
-submission_2_mean_ann = pd.DataFrame({"PassengerId": titanic_test["PassengerId"], "Survived": X_submission_2_mean_ann_prediction})
+submission_1_0_lr = pd.DataFrame({
+    "PassengerId": titanic_test["PassengerId"],
+    "Survived": X_submission_1_0_lr_prediction})
+submission_1_mean_lr = pd.DataFrame({
+    "PassengerId": titanic_test["PassengerId"],
+    "Survived": X_submission_1_mean_lr_prediction})
+submission_2_0_lr = pd.DataFrame({
+    "PassengerId": titanic_test["PassengerId"],
+    "Survived": X_submission_2_0_lr_prediction})
+submission_2_mean_lr = pd.DataFrame({
+    "PassengerId": titanic_test["PassengerId"],
+    "Survived": X_submission_2_mean_lr_prediction})
+submission_1_0_ann = pd.DataFrame({
+    "PassengerId": titanic_test["PassengerId"],
+    "Survived": X_submission_1_0_ann_prediction})
+submission_1_mean_ann = pd.DataFrame({
+    "PassengerId": titanic_test["PassengerId"],
+    "Survived": X_submission_1_mean_ann_prediction})
+submission_2_0_ann = pd.DataFrame({
+    "PassengerId": titanic_test["PassengerId"],
+    "Survived": X_submission_2_0_ann_prediction})
+submission_2_mean_ann = pd.DataFrame({
+    "PassengerId": titanic_test["PassengerId"],
+    "Survived": X_submission_2_mean_ann_prediction})
 
 submission_1_0_lr.to_csv("../datasets/submissions/X_submission_1_0_lr_prediction.csv", index=False)
 submission_1_mean_lr.to_csv("../datasets/submissions/X_submission_1_mean_lr_prediction.csv", index=False)
