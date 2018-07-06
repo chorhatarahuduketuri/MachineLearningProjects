@@ -280,6 +280,65 @@ print('gridSearch_ann_mean_poly.best_score_:')
 print(gridSearch_ann_mean_poly.best_score_)
 print('gridSearch_ann_mean_poly.best_params_:')
 print(gridSearch_ann_mean_poly.best_params_)
+
+# KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier
+
+parameters = {'n_neighbors': np.arange(1, 100)}
+gridSearch_knc_0_1 = GridSearchCV(KNeighborsClassifier(), parameters, verbose=1, n_jobs=3)
+gridSearch_knc_0_1.fit(standardised_X_train_0, y_train_0)
+gridSearch_knc_mean_1 = GridSearchCV(KNeighborsClassifier(), parameters, verbose=1, n_jobs=3)
+gridSearch_knc_mean_1.fit(standardised_X_train_mean, y_train_mean)
+gridSearch_knc_0_poly = GridSearchCV(KNeighborsClassifier(), parameters, verbose=1, n_jobs=3)
+gridSearch_knc_0_poly.fit(standardised_X_train_0_poly, y_train_0)
+gridSearch_knc_mean_poly = GridSearchCV(KNeighborsClassifier(), parameters, verbose=1, n_jobs=3)
+gridSearch_knc_mean_poly.fit(standardised_X_train_mean_poly, y_train_mean)
+print('gridSearch_knc_0_1.best_score_:')
+print(gridSearch_knc_0_1.best_score_)
+print('gridSearch_knc_0_1.best_params_:')
+print(gridSearch_knc_0_1.best_params_)
+print('gridSearch_knc_mean_1.best_score_:')
+print(gridSearch_knc_mean_1.best_score_)
+print('gridSearch_knc_mean_1.best_params_:')
+print(gridSearch_knc_mean_1.best_params_)
+print('gridSearch_knc_0_poly.best_score_:')
+print(gridSearch_knc_0_poly.best_score_)
+print('gridSearch_knc_0_poly.best_params_:')
+print(gridSearch_knc_0_poly.best_params_)
+print('gridSearch_knc_mean_poly.best_score_:')
+print(gridSearch_knc_mean_poly.best_score_)
+print('gridSearch_knc_mean_poly.best_params_:')
+print(gridSearch_knc_mean_poly.best_params_)
+
+# Support Vector Classifier
+from sklearn.svm import SVC
+
+parameters = {'C': np.arange(0.001, 10, 0.001),
+              'kernel': ('rbf', 'sigmoid')}
+gridSearch_svc_0_1 = GridSearchCV(SVC(tol=0.0001), parameters, verbose=1, n_jobs=4)
+gridSearch_svc_0_1.fit(standardised_X_train_0, y_train_0)
+gridSearch_svc_mean_1 = GridSearchCV(SVC(tol=0.0001), parameters, verbose=1, n_jobs=4)
+gridSearch_svc_mean_1.fit(standardised_X_train_mean, y_train_mean)
+gridSearch_svc_0_poly = GridSearchCV(SVC(tol=0.0001), parameters, verbose=1, n_jobs=4)
+gridSearch_svc_0_poly.fit(standardised_X_train_0_poly, y_train_0)
+gridSearch_svc_mean_poly = GridSearchCV(SVC(tol=0.0001), parameters, verbose=1, n_jobs=4)
+gridSearch_svc_mean_poly.fit(standardised_X_train_mean_poly, y_train_mean)
+print('gridSearch_svc_0_1.best_score_:')
+print(gridSearch_svc_0_1.best_score_)
+print('gridSearch_svc_0_1.best_params_:')
+print(gridSearch_svc_0_1.best_params_)
+print('gridSearch_svc_mean_1.best_score_:')
+print(gridSearch_svc_mean_1.best_score_)
+print('gridSearch_svc_mean_1.best_params_:')
+print(gridSearch_svc_mean_1.best_params_)
+print('gridSearch_svc_0_poly.best_score_:')
+print(gridSearch_svc_0_poly.best_score_)
+print('gridSearch_svc_0_poly.best_params_:')
+print(gridSearch_svc_0_poly.best_params_)
+print('gridSearch_svc_mean_poly.best_score_:')
+print(gridSearch_svc_mean_poly.best_score_)
+print('gridSearch_svc_mean_poly.best_params_:')
+print(gridSearch_svc_mean_poly.best_params_)
 exit(code=3)
 # Step 8 - Prediction
 # Create submittable CSVs

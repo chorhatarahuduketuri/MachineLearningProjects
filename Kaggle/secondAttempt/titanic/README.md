@@ -265,4 +265,88 @@ Neural Networks;
 
 All of these I get, and know are relevant to improving learning. The only one I don't really know a lot about is `hidden_layer_sizes`, since I'm no expert on ANN topology, except that MOAR IS BETTA. This is a test to see if a larger number of neurons arranged in a smaller number of larger layers, is better than a smaller number of neurons, arranged in a larger number of smaller layers.
 
-Currently neither of my computers have finished calculating any of this, and some have been at it for what we will politely term a while. The one I'm writing this on (faster CPU, less RAM) suffered a segfault near the end of the last run. I'm trying again and we'll see what happens. 
+Currently neither of my computers have finished calculating any of this, and some have been at it for what we will politely term a while. The one I'm writing this on (faster CPU, less RAM) suffered a segfault near the end of the last run. I'm trying again and we'll see what happens.
+
+OK, so, they finished, after some time. One took 255 minutes, another took 268, and a reduced form took 90. \
+
+The results of the two full runs are as follows:
+
+##### Logistic Regression
+| Dataset | Score | Tol | Solver | C |
+| --- | --- | --- | --- | --- |
+| Run 1 - 0 1 | 0.6838 | 0.00001 | liblinear | 0.1 |
+| Run 2 - 0 1 | 0.7047 | 0.00001 | liblinear | 0.7 |
+| Run 1 - mean 1 | 0.7030 | 0.00001 | liblinear | 0.8 |
+| Run 2 - mean 1 | 0.7030 | 0.00001 | lbfgs | 0.1 |
+| Run 1 - 0 poly | 0.7030 | 0.00001 | lbfgs | 3.8 |
+| Run 2 - 0 poly | 0.7287 | 0.00001 | lbfgs | 3.6 |
+| Run 1 - mean poly | 0.7287 | 0.00001 | liblinear | 0.5 |
+| Run 2 - mean poly | 0.7175 | 0.00001 | liblinear | 0.4 |
+
+##### Artificial Neural Networks
+| Dataset | Score | Learning Rate | Learning Rate Init | Alpha | Architecture | 
+| --- | --- | --- | --- | --- | --- |
+| Run 1 - 0 1 | 0.6501 | constant | 0.0001 | 0.00024 | (100, 50, 25, 12) |
+| Run 2 - 0 1 | 0.6613 | constant | 0.00130 | 0.00004 | (100, 50, 25, 12) |
+| Run 1 - mean 1 | 0.6597 | constant | 0.00301 | 0.00017 | (100, 50, 25, 12) |
+| Run 2 - mean 1 | 0.6437 | constant | 0.0015 | 0.00011 | (100, 50, 25, 12) |
+| Run 1 - 0 poly | 0.6661 | adaptive | 0.00390 | 0.00027 | (100, 50, 25, 12) |
+| Run 2 - 0 poly | 0.6597 | adaptive | 0.0016 | 0.00015 | (100, 50, 25, 12) |
+| Run 1 - mean poly | 0.6709 | constant | 0.0019 | 0.00001 | (100, 50, 25, 12) |
+| Run 2 - mean poly | 0.6613 | constant | 0.0013 | 0.00003 | (100, 50, 25, 12) |
+
+Wow that was pointless. Basically, logistic regression is better than neural networks regardless of the dataset. In fact, the _worst_ logistic regression model is better than the _best_ neural network model.\
+Enough of this I'm trying some other model type. 
+
+##### Other models
+ * Linear Support Vector Classifier (SVC)
+ * KNeighbors Classifier
+ * Support Vector Classifier
+ * Ensemble Classifiers
+
+Before we go getting extreme and using ensemble methods, lets just think about this a minute. \
+For starters, this data is obviously not cleanly linearly separable, so linear SVC is straight out the window. KNeighbors classifier sounds interesting, as does the ever-useless SVC (with grid search to configure it properly). Ensemble classifiers can be dragged out if the others fail to get >90% accuracy and F1-Scores. Yea, that sounds like a reasonable plan.
+
+#### KNeighbors Classifier
+`sklearn.neighbors.KNeighborsClassifier` has only one meaningful parameter for the grid search: n_neighbors. The other parameters are all relevant to much larger datasets that take a lot more computation time. 
+
+| Dataset | Score | n_neighbors |
+| --- | --- | --- |
+| Run 1 - 0 1 | 0.7191 | 23 |
+| Run 2 - 0 1 | 0.7239 | 46 |
+| Run 3 - 0 1 | 0.7303 | 20 |
+| Run 4 - 0 1 | 0.7303 | 22 |
+| Run 1 - mean 1 | 0.7175 | 33 |
+| Run 2 - mean 1 | 0.7191 | 18 |
+| Run 3 - mean 1 | 0.7191 | 24 |
+| Run 4 - mean 1 | 0.7271 | 9 |
+| Run 1 - 0 poly | 0.7239 | 29 |
+| Run 2 - 0 poly | 0.7191 | 12 |
+| Run 3 - 0 poly | 0.7287 | 12 |
+| Run 4 - 0 poly | 0.7191 | 21 |
+| Run 1 - mean poly | 0.7207 | 35 |
+| Run 2 - mean poly | 0.7271 | 45 |
+| Run 3 - mean poly | 0.7207 | 32 |
+| Run 4 - mean poly | 0.7319 | 27 |
+
+Well that's not much better than linear regression. Never mind onto SVC: 
+
+#### Support Vector Classifier
+`sklearn.svm.SVC` has 5 meaningful parameters: C, kernel, degree (when kernel='poly', shrinking, tol.\
+So the original range of values on the parameters resulted in 35636436 fits, of which 59032 were done in 3.2 minutes. So that's ((35636436/59032)*(60*3.2)) = 115906 seconds, which is 32.2 hours. I'll try another arrangement of parameters. 
+
+| Dataset | Score | C | Kernel | Tol |
+| --- | --- | --- | --- | --- |
+| Run 1 - 0 1 | 0.6886 | 2.565 | rbf | 0.0001 |
+| Run 2 - 0 1 | 0.6886 | 2.565 | rbf | 0.0001 |
+| Run 1 - mean 1 | 0.7352 | 0.766 | rbf | 0.0001 |
+| Run 2 - mean 1 | 0.7352 | 0.766 | rbf | 0.0001 |
+| Run 1 - 0 poly | 0.6918 | 0.669 | rbf | 0.0001 |
+| Run 2 - 0 poly | 0.6918 | 0.669 | rbf | 0.0001 |
+| Run 1 - mean poly | 0.7287 | 0.285 | rbf | 0.0001 |
+| Run 2 - mean poly | 0.7287 | 0.285 | rbf | 0.0001 |
+
+Both runs took just over 17 minutes, and both got exceedingly similar results. 
+
+At this point it's becoming annoying that I've got nothing better than 0.7352, though it is interesting that the least linear thing I've applied (SVM with RBF kernel) is the most accurate.\
+I'm going to look at the approaches of others to see what they've achieved. 
