@@ -15,7 +15,7 @@ print(titanic_test.shape)
 print('titanic_training.describe():')
 print(titanic_training.describe())
 
-data = titanic_training[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+data = titanic_training[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].values
 import numpy as np
 
 age = data[:, 2]
@@ -54,21 +54,22 @@ fig3.savefig('../gitIgnoreDir/Age_histogram.png')
 
 # training
 # 0sub
-training_data_0 = titanic_training[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+feature_names = ['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']
+training_data_0 = titanic_training[feature_names].values
 train_nan_indicies_0 = np.isnan(training_data_0[:, 1])
 training_data_0[:, 1][train_nan_indicies_0] = 0
 # meansub
-training_data_mean = titanic_training[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+training_data_mean = titanic_training[feature_names].values
 training_age_mean = np.nanmean(training_data_mean, axis=0)[1]
 train_nan_indicies_mean = np.isnan(training_data_mean[:, 1])
 training_data_mean[:, 1][train_nan_indicies_mean] = training_age_mean
 # testing
 # 0sub
-test_data_0 = titanic_test[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+test_data_0 = titanic_test[feature_names].values
 test_nan_indicies_0 = np.isnan(test_data_0[:, 1])
 test_data_0[:, 1][test_nan_indicies_0] = 0
 # meansub
-test_data_mean = titanic_test[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].as_matrix()
+test_data_mean = titanic_test[feature_names].values
 test_age_mean = np.nanmean(test_data_mean, axis=0)[1]
 test_nan_indicies_mean = np.isnan(test_data_mean[:, 1])
 test_data_mean[:, 1][test_nan_indicies_mean] = test_age_mean
@@ -339,7 +340,57 @@ print('gridSearch_svc_mean_poly.best_score_:')
 print(gridSearch_svc_mean_poly.best_score_)
 print('gridSearch_svc_mean_poly.best_params_:')
 print(gridSearch_svc_mean_poly.best_params_)
-exit(code=3)
+
+# Decision Tree Classifier
+from sklearn.tree import DecisionTreeClassifier
+
+parameters = {'splitter': ('best', 'random'),
+              'max_depth': np.arange(1, 21, 1),
+              'min_samples_split': np.arange(2, 21, 1),
+              'min_samples_leaf': np.arange(1, 21, 1),
+              'max_features': np.arange(1, 5)}
+gridSearch_dtc_0 = GridSearchCV(DecisionTreeClassifier(), parameters, verbose=1, n_jobs=4)
+gridSearch_dtc_0.fit(X_train_0, y_train_0)
+gridSearch_dtc_mean = GridSearchCV(DecisionTreeClassifier(), parameters, verbose=1, n_jobs=4)
+gridSearch_dtc_mean.fit(X_train_mean, y_train_mean)
+print('gridSearch_dtc_0.best_score_:')
+print(gridSearch_dtc_0.best_score_)
+print('gridSearch_dtc_0.best_params_:')
+print(gridSearch_dtc_0.best_params_)
+print('gridSearch_dtc_mean.best_score_:')
+print(gridSearch_dtc_mean.best_score_)
+print('gridSearch_dtc_mean.best_params_:')
+print(gridSearch_dtc_mean.best_params_)
+
+import graphviz
+from sklearn import tree
+
+dot_data_0 = tree.export_graphviz(gridSearch_dtc_0.best_estimator_, out_file=None, feature_names=feature_names,
+                                  class_names=target_names, filled=True, rounded=True, special_characters=True)
+graph_0 = graphviz.Source(dot_data_0)
+graph_0.render("../gitIgnoreDir/sub_0")
+
+dot_data_mean = tree.export_graphviz(gridSearch_dtc_mean.best_estimator_, out_file=None, feature_names=feature_names,
+                                     class_names=target_names, filled=True, rounded=True, special_characters=True)
+graph_mean = graphviz.Source(dot_data_mean)
+graph_mean.render("../gitIgnoreDir/sub_mean")
+
+dtc_pred_0 = gridSearch_dtc_0.best_estimator_.predict(X_validate_0)
+dtc_pred_mean = gridSearch_dtc_mean.best_estimator_.predict(X_validate_mean)
+
+print("Accuracy score: dtc_pred_0:")
+print(accuracy_score(y_validate_0, dtc_pred_0))
+print("Accuracy score: dtc_pred_mean:")
+print(accuracy_score(y_validate_mean, dtc_pred_mean))
+
+
+X_train_mean, X_validate_mean, y_train_mean, y_validate_mean = train_test_split(training_data_mean, target_data, test_size=0.3)
+dtc = DecisionTreeClassifier(splitter='random', max_depth=6, min_samples_split=10, min_samples_leaf=10, max_features=5)
+dtc.fit(X_train_mean, y_train_mean)
+pred = dtc.predict(X_validate_mean)
+print("Hand rolled dtc, accuracy score:")
+print(accuracy_score(y_validate_mean, pred))
+
 # Step 8 - Prediction
 # Create submittable CSVs
 # Get rid of NaNs in the test data:

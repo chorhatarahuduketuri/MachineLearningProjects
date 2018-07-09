@@ -1,5 +1,7 @@
 # The Titanic
 
+Please note that the code that accompanies this is all in one file, and as such will take an extremely long time to run. It is intended that anyone who wishes to use it comment out any code they do not wish to run before executing the file. 
+
 ### Step One
 'Define the problem/understand the business'
 
@@ -349,4 +351,22 @@ So the original range of values on the parameters resulted in 35636436 fits, of 
 Both runs took just over 17 minutes, and both got exceedingly similar results. 
 
 At this point it's becoming annoying that I've got nothing better than 0.7352, though it is interesting that the least linear thing I've applied (SVM with RBF kernel) is the most accurate.\
-I'm going to look at the approaches of others to see what they've achieved. 
+I'm going to look at the approaches of others to see what they've achieved.\
+(Note that I'm just blithely trying algorithm after algorithm and pretending grid searches of parameters are actually a proper analysis procedure. I'm fairly sure it's not. I'll end this soon and do something proper next.)
+
+
+#### Decision Tree Classifier
+OK so the next library function I'm gonna throw at this is `sklearn.tree.DecisionTreeClassifier`, because it looks interesting, and also because basically I looked at the leaderboard on Kaggle for a bit and found that tree models seemed to do well (ensemble models did the best).\
+Tree models are essentially the computer making a '20 questions' game out of classifying samples, which is cool because a human can actually understand a 20 questions tree (unlike a neural network which is incomprehensible), and it can deal with categorical data in addition to numerical data.\
+I'm going to leave most of the parameters on default for this, and concentrate more on the data preparation, as it wants something different to what the numerical-only algorithms wanted. 
+
+In a single run that took 3 minutes, the two DTCs run came back with 75.6019% and 74.9599% accuracy. This looks promising. 
+
+OK, so after messing around with code for a while, looking at the results, and then hand-rolling something in the cli (`splitter='random', max_depth=6, min_samples_split=10, min_samples_leaf=10, max_features=5`), I got something that I locally validated as 75.0% accurate. On the Kaggle scoreboard this came out as 0.69856, which is 69.856% accurate, which is rubbish. Basically I'm onto ensemble now.\
+But first, I'm going to take a look at the picture I made, which displays some interesting things: 
+
+Decision Tree Classifier: \
+![SibSp Histogram](https://raw.githubusercontent.com/chorhatarahuduketuri/MachineLearningProjects/master/Kaggle/secondAttempt/titanic/images/sub_mean.png "Decision Tree Classifier")\
+This is the first bit of learning that I've gotten a machine to do that you can actually see. And the first thing you see is that almost everyone in 3rd class dies. Actually only 10 of them survive. That's awful.\
+After that, it's parents & children - if you're in that group you all survive (providing you were in 1st or 2nd class, that is). Take a look and see what you can determine from it. \
+
